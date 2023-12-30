@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://ucdnrsqiet7n"]
+
+[ext_resource type="PackedScene" uid="uid://cqgahgxombmw1" path="res://pieces/piece.tscn" id="1_bj4hn"]
+[ext_resource type="Script" path="res://scripts/rook.gd" id="2_dthwk"]
+
+[node name="rook" instance=ExtResource("1_bj4hn")]
+script = ExtResource("2_dthwk")
