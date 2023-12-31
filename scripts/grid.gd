@@ -1,13 +1,14 @@
 extends Node2D
-
+# column & row variabels
 var num_colums: int = 8
 var num_rows: int = 8
 var x_start = 50
 var y_start = 50
 var offset = 100
 
+# array that will become a 2D array
 var board = []
-
+# list of paths to pices objects
 var pieces_list = [
 	preload("res://pieces/rook.tscn"),
 	preload("res://pieces/knight.tscn"), 
@@ -27,12 +28,13 @@ func _ready():
 func _process(delta):
 	pass
 
+# makes the array into a 2D array
 func make_2d_array():
 	var array = []
 	for i in num_colums:
 		array.append([])
 		for j in num_rows:
-			array.append(null)
+			array[i].append(null)
 	return array
 
 # change the column and raw number to pixel values 
@@ -41,7 +43,20 @@ func grid_to_pixel(column, row):
 	var pixel_y = y_start + offset * row
 	return Vector2(pixel_x, pixel_y)
 
+# change the column and raw number to grid values 
+func pixel_to_grid(pixel_column, pixel_row):
+	var row_x = (pixel_column - x_start) / offset
+	var row_y = (pixel_row - y_start) / offset
+	return Vector2(row_x, row_y)
 
+# save piece on board 2D array		
+func add_to_board(piece):
+	var piece_x = piece.position.x
+	var piece_y = piece.position.y
+	var piece_vector = pixel_to_grid(piece_x, piece_y)
+	board[piece_vector.x][piece_vector.y] = piece
+
+# spaen pices on their inital position
 func spawn_initial_pices():
 	var rook = pieces_list[0]
 	var knight = pieces_list[1]
@@ -53,18 +68,22 @@ func spawn_initial_pices():
 	# add pawns
 	for i in num_colums:
 		# create pices
-		var white_piece = pawn.instantiate()
-		var black_piece = pawn.instantiate()
+		var white_pawn = pawn.instantiate()
+		var black_pawn = pawn.instantiate()
 		# set color
-		white_piece.isWhite = true
-		black_piece.isWhite = false
+		white_pawn.isWhite = true
+		black_pawn.isWhite = false
 		# add them as childern to the grid
-		add_child(white_piece)
-		add_child(black_piece)
+		add_child(white_pawn)
+		add_child(black_pawn)
 		# add white pawns to 7nd row
-		white_piece.position = grid_to_pixel(i, 6)
+		white_pawn.position = grid_to_pixel(i, 6)
 		# add black pawns to 2th row
-		black_piece.position = grid_to_pixel(i, 1)
+		black_pawn.position = grid_to_pixel(i, 1)
+		
+		# save them on board 2D array
+		add_to_board(white_pawn)
+		add_to_board(black_pawn)
 	
 	# add other pices that are not pawns
 	for i in 2:
@@ -115,6 +134,19 @@ func spawn_initial_pices():
 			black_qween.position = grid_to_pixel(3, 0)
 			white_king.position = grid_to_pixel(4, 7)
 			black_king.position = grid_to_pixel(4, 0)
+			
+			# add them to the board 2D array
+			add_to_board(white_rook)
+			add_to_board(black_rook)
+			add_to_board(white_knight)
+			add_to_board(black_knight)
+			add_to_board(white_bishop)
+			add_to_board(black_bishop)
+			add_to_board(white_qween)
+			add_to_board(black_qween)
+			add_to_board(white_king)
+			add_to_board(black_king)
+			
 		else:
 			white_rook.position = grid_to_pixel(7, 7)
 			black_rook.position = grid_to_pixel(7, 0)
@@ -122,8 +154,13 @@ func spawn_initial_pices():
 			black_knight.position = grid_to_pixel(6, 0)
 			white_bishop.position = grid_to_pixel(5, 7)
 			black_bishop.position = grid_to_pixel(5, 0)
-			
-			
-			
+			add_to_board(white_rook)
+			add_to_board(black_rook)
+			add_to_board(white_knight)
+			add_to_board(black_knight)
+			add_to_board(white_bishop)
+			add_to_board(black_bishop)
+
+
 
 
