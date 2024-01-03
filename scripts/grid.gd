@@ -18,17 +18,26 @@ var pieces_list = [
 	preload("res://pieces/pawn.tscn"), 
 ]
 
+#var player_path = preload("res://player.tscn")
+
 # mouse click variabels
 var click1 = Vector2(0 ,0)
 var click2 = Vector2(0, 0)
 var controlling: bool = false
 var controlling_piece
-var wait: bool = true
+
+# player and turn counter
+var turn_player
+@onready var turn_node = $turn
+var turn: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	board = make_2d_array()
 	spawn_initial_pices()
+	next_turn()
+	get_turn_player()
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,6 +47,7 @@ func _process(delta):
 	if is_controlling:
 		controlling = true
 	
+	get_turn_player()
 
 # makes the array into a 2D array
 func make_2d_array():
@@ -47,6 +57,18 @@ func make_2d_array():
 		for j in num_rows:
 			array[i].append(null)
 	return array
+
+# update turn
+func next_turn():
+	turn = turn + 1
+	turn_node.text = str(turn)
+
+# get turn player
+func get_turn_player():
+	if turn % 2 == 1:
+		turn_player = $white_player
+	elif turn % 2 == 0:
+		turn_player = $black_player
 
 # change the column and raw number to pixel values 
 func grid_to_pixel(column, row):
@@ -69,16 +91,15 @@ func is_in_grid(x, y):
 func click_input():
 	if Input.is_action_just_pressed("ui_click") && controlling == false:
 		click1 = get_local_mouse_position()
-		print(click1)
 		var grid_position = pixel_to_grid(click1.x, click1.y)
-		if is_in_grid(grid_position.x, grid_position.y) && board[grid_position.x][grid_position.y] != null:
+		if is_in_grid(grid_position.x, grid_position.y) && board[grid_position.x][grid_position.y] != null && \
+		board[grid_position.x][grid_position.y].isWhite == turn_player.isWhite:
 			controlling_piece = board[grid_position.x][grid_position.y]
 			return true
 
 func click_output():
 	if Input.is_action_just_pressed("ui_click") && controlling:
 		click2 = get_local_mouse_position()
-		print(click2)
 		var grid_position = pixel_to_grid(click2.x, click2.y)
 		if is_in_grid(grid_position.x, grid_position.y):
 			var original_grid = pixel_to_grid(click1.x, click1.y)
@@ -86,12 +107,17 @@ func click_output():
 			controlling = false
 
 func move_piece(column0, row0, column1, row1):
-	var piece = board[column0][row0]
-	if board[column1][row1] != null:
-		board[column1][row1].queue_free()
-	board[column0][row0].position = grid_to_pixel(column1, row1)
-	board[column0][row0] = null
-	board[column1][row1] = piece
+	# this if statemnt checks if the player clicked twice in a row in the same spot
+	if column0 != column1 || row0 != row1:
+		var piece = board[column0][row0]
+		if board[column1][row1] != null:
+			board[column1][row1].queue_free()
+		board[column0][row0].position = grid_to_pixel(column1, row1)
+		board[column0][row0] = null
+		board[column1][row1] = piece
+		next_turn()
+		get_turn_player()
+
 
 
 
