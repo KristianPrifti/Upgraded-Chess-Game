@@ -12,3 +12,13 @@ func _ready():
 func _process(delta):
 	pass
 
+func get_possible_moves(position: Vector2):
+	var possible_moves = []
+	var moves_to_add = [Vector2(1, 1), Vector2(0, 1), Vector2(-1, 1), Vector2(-1, 0),
+	Vector2(-1, -1), Vector2(0, -1), Vector2(1, -1), Vector2(1, 0)]
+	for i in moves_to_add:
+		var move = position + i
+		if (is_in_grid(move)):
+			possible_moves.append(move)
+	
+	return possible_moves

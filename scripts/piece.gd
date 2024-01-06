@@ -15,3 +15,8 @@ func initial_texture(white_path, black_path):
 		$Sprite2D.texture = ResourceLoader.load(white_path)
 	elif self.isWhite == false:
 		$Sprite2D.texture = ResourceLoader.load(black_path)
+
+func is_in_grid(position: Vector2):
+	if position.x >= 0 && position.x < 8 && position.y >=0 && position.y < 8:
+		return true
+	return false

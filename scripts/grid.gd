@@ -8,6 +8,7 @@ var offset = 100
 
 # array that will become a 2D array
 var board = []
+var hold_moves = []
 # list of paths to pices objects
 var pieces_list = [
 	preload("res://pieces/rook.tscn"),
@@ -17,6 +18,8 @@ var pieces_list = [
 	preload("res://pieces/king.tscn"), 
 	preload("res://pieces/pawn.tscn"), 
 ]
+
+var active_symbol_path = preload("res://active_symbol.tscn")
 
 #var player_path = preload("res://player.tscn")
 
@@ -34,6 +37,7 @@ var turn: int = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	board = make_2d_array()
+	hold_moves = make_2d_array()
 	spawn_initial_pices()
 	next_turn()
 	get_turn_player()
@@ -95,6 +99,11 @@ func click_input():
 		if is_in_grid(grid_position.x, grid_position.y) && board[grid_position.x][grid_position.y] != null && \
 		board[grid_position.x][grid_position.y].isWhite == turn_player.isWhite:
 			controlling_piece = board[grid_position.x][grid_position.y]
+			
+			var moves = controlling_piece.get_possible_moves(grid_position)
+			for i in moves:
+				if board[i.x][i.y] == null || board[i.x][i.y].isWhite != turn_player.isWhite:
+					add_active_symbol(i.x, i.y)
 			return true
 
 func click_output():
@@ -105,10 +114,17 @@ func click_output():
 			var original_grid = pixel_to_grid(click1.x, click1.y)
 			move_piece(original_grid.x, original_grid.y, grid_position.x, grid_position.y)
 			controlling = false
+			controlling_piece = null
+			# update the active_squares and hold_moves
+			get_node("../../").get_node("active_squares").remove_circles()
+			hold_moves.clear()
+			hold_moves = make_2d_array()
 
 func move_piece(column0, row0, column1, row1):
 	# this if statemnt checks if the player clicked twice in a row in the same spot
 	if column0 != column1 || row0 != row1:
+		if board[column1][row1] != null && board[column0][row0].isWhite == board[column1][row1].isWhite:
+			return
 		var piece = board[column0][row0]
 		if board[column1][row1] != null:
 			board[column1][row1].queue_free()
@@ -118,7 +134,12 @@ func move_piece(column0, row0, column1, row1):
 		next_turn()
 		get_turn_player()
 
-
+# add the circle active symbol for the active piece
+func add_active_symbol(x, y):
+	var symbol = active_symbol_path.instantiate()
+	get_node("../../").get_node("active_squares").add_child(symbol)
+	symbol.position = grid_to_pixel(x, y)
+	hold_moves[x][y] = symbol
 
 
 # save piece on board 2D array		
