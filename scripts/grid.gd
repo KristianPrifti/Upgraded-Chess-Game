@@ -100,10 +100,9 @@ func click_input():
 		board[grid_position.x][grid_position.y].isWhite == turn_player.isWhite:
 			controlling_piece = board[grid_position.x][grid_position.y]
 			
-			var moves = controlling_piece.get_possible_moves(grid_position)
+			var moves = controlling_piece.get_possible_moves(grid_position, board, turn_player.isWhite)
 			for i in moves:
-				if board[i.x][i.y] == null || board[i.x][i.y].isWhite != turn_player.isWhite:
-					add_active_symbol(i.x, i.y)
+				add_active_symbol(i.x, i.y)
 			return true
 
 func click_output():
