@@ -17,10 +17,11 @@ func get_possible_moves(position: Vector2, board, turn_player_isWhite):
 	var moves_to_add = []
 	
 	if turn_player_isWhite:
-		moves_to_add = [Vector2(0, -1)]
-		# add first double step move
-		if position.y == 6 && board[position.x][position.y - 1] == null:
-			moves_to_add.append(Vector2(0, -2))
+		if is_in_grid(Vector2(position.x, position.y - 1)) && board[position.x][position.y - 1] == null:
+			moves_to_add = [Vector2(0, -1)]
+			# add first double step move
+			if position.y == 6:
+				moves_to_add.append(Vector2(0, -2))
 		# be able to take diagonal
 		if is_in_grid(Vector2(position.x - 1, position.y - 1)) && board[position.x - 1][position.y - 1] != null && board[position.x - 1][position.y - 1].isWhite != turn_player_isWhite:
 			moves_to_add.append(Vector2(-1, -1))
@@ -28,10 +29,11 @@ func get_possible_moves(position: Vector2, board, turn_player_isWhite):
 			moves_to_add.append(Vector2(1, -1))
 	
 	elif turn_player_isWhite == false:
-		moves_to_add = [Vector2(0, 1)]
-		# add first double step move
-		if position.y == 1 && board[position.x][position.y + 1] == null:
-			moves_to_add.append(Vector2(0, 2))
+		if is_in_grid(Vector2(position.x, position.y + 1)) && board[position.x][position.y + 1] == null:
+			moves_to_add = [Vector2(0, 1)]
+			# add first double step move
+			if position.y == 1:
+				moves_to_add.append(Vector2(0, 2))
 		# be able to take diagonal
 		if is_in_grid(Vector2(position.x - 1, position.y + 1)) && board[position.x - 1][position.y + 1] != null && board[position.x - 1][position.y + 1].isWhite != turn_player_isWhite:
 			moves_to_add.append(Vector2(-1, 1))

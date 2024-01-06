@@ -110,8 +110,10 @@ func click_output():
 		click2 = get_local_mouse_position()
 		var grid_position = pixel_to_grid(click2.x, click2.y)
 		if is_in_grid(grid_position.x, grid_position.y):
-			var original_grid = pixel_to_grid(click1.x, click1.y)
-			move_piece(original_grid.x, original_grid.y, grid_position.x, grid_position.y)
+			if hold_moves[grid_position.x][grid_position.y] != null:
+				var original_grid = pixel_to_grid(click1.x, click1.y)
+				move_piece(original_grid.x, original_grid.y, grid_position.x, grid_position.y)
+			
 			controlling = false
 			controlling_piece = null
 			# update the active_squares and hold_moves
