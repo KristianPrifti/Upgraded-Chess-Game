@@ -34,6 +34,10 @@ var turn_player
 @onready var turn_node = $turn
 var turn: int = 0
 
+# check if king is deleated to switch to game over screen
+var king_deleated = false
+var king_deleated_isWhite
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	board = make_2d_array()
@@ -43,13 +47,17 @@ func _ready():
 	get_turn_player()
 
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var is_controlling = click_input()
 	click_output()
 	if is_controlling:
 		controlling = true
+	
+	if king_deleated:
+		if kings_are_left(king_deleated_isWhite) == false:
+			switch_to_end_scene(king_deleated_isWhite)
+			king_deleated = false
 	
 	get_turn_player()
 
@@ -65,7 +73,7 @@ func make_2d_array():
 # update turn
 func next_turn():
 	turn = turn + 1
-	turn_node.text = str(turn)
+	turn_node.text = "Turn: " + str(turn)
 
 # get turn player
 func get_turn_player():
@@ -128,12 +136,32 @@ func move_piece(column0, row0, column1, row1):
 			return
 		var piece = board[column0][row0]
 		if board[column1][row1] != null:
+			var deleated_type = board[column1][row1].piece_type
+			var deleated_isWhite = board[column1][row1].isWhite
 			board[column1][row1].queue_free()
+			# if a king was deleated 
+			if deleated_type == "king":
+				king_deleated = true
+				king_deleated_isWhite = deleated_isWhite
+		
 		board[column0][row0].position = grid_to_pixel(column1, row1)
 		board[column0][row0] = null
 		board[column1][row1] = piece
 		next_turn()
 		get_turn_player()
+
+# check if there are any more kings of the deleated color 
+func kings_are_left(color):
+	for i in 8:
+		for j in 8:
+			if board[i][j] != null:
+				if board[i][j].piece_type == "king" && board[i][j].isWhite == color:
+					return true
+	return false
+
+# if a player doesn't have any more kings they lose
+func switch_to_end_scene(color):
+	get_tree().change_scene_to_file("res://end_scene.tscn")
 
 # add the circle active symbol for the active piece
 func add_active_symbol(x, y):
@@ -161,19 +189,8 @@ func spawn_initial_pices():
 	
 	# add pawns
 	for i in num_colums:
-#		# create pices
-#		var white_pawn = pawn.instantiate()
-#		var black_pawn = pawn.instantiate()
-#		# set color
-#		white_pawn.isWhite = true
-#		black_pawn.isWhite = false
-#		# add them as childern to the grid
-#		add_child(white_pawn)
-#		add_child(black_pawn)
-#		# add white pawns to 7nd row
-#		white_pawn.position = grid_to_pixel(i, 6)
-#		# add black pawns to 2th row
-#		black_pawn.position = grid_to_pixel(i, 1)
+		# create pices & set color & add them as childern to the grid
+		# add white pawns to 7nd row & add black pawns to 2th row
 		var white_pawn = spawn_initial(pawn, true, i, 6)
 		var black_pawn = spawn_initial(pawn, false, i, 1)
 		# save them on board 2D array
@@ -215,81 +232,6 @@ func spawn_initial_pices():
 	add_to_board(white_bishop2)
 	add_to_board(black_bishop2)
 	
-	
-#	for i in 2:
-#		# create pieces
-#		var white_rook = rook.instantiate()
-#		var black_rook = rook.instantiate()
-#		var white_knight = knight.instantiate()
-#		var black_knight = knight.instantiate()
-#		var white_bishop = bishop.instantiate()
-#		var black_bishop = bishop.instantiate()
-#		# set color
-#		white_rook.isWhite = true
-#		black_rook.isWhite = false
-#		white_knight.isWhite = true
-#		black_knight.isWhite = false
-#		white_bishop.isWhite = true
-#		black_bishop.isWhite = false
-#		# add them a childern to the grid
-#		add_child(white_rook)
-#		add_child(black_rook)
-#		add_child(white_knight)
-#		add_child(black_knight)
-#		add_child(white_bishop)
-#		add_child(black_bishop)
-#		# only make 1 king a qween of each side and add the first group of pices
-#		if i == 0:
-#			var white_qween = qween.instantiate()
-#			var black_qween = qween.instantiate()
-#			var white_king = king.instantiate()
-#			var black_king = king.instantiate()
-#			white_qween.isWhite = true
-#			black_qween.isWhite = false
-#			white_king.isWhite = true
-#			black_king.isWhite = false
-#			add_child(white_qween)
-#			add_child(black_qween)
-#			add_child(white_king)
-#			add_child(black_king)
-#
-#			# put them in the right location
-#			white_rook.position = grid_to_pixel(0, 7)
-#			black_rook.position = grid_to_pixel(0, 0)
-#			white_knight.position = grid_to_pixel(1, 7)
-#			black_knight.position = grid_to_pixel(1, 0)
-#			white_bishop.position = grid_to_pixel(2, 7)
-#			black_bishop.position = grid_to_pixel(2, 0)
-#			white_qween.position = grid_to_pixel(3, 7)
-#			black_qween.position = grid_to_pixel(3, 0)
-#			white_king.position = grid_to_pixel(4, 7)
-#			black_king.position = grid_to_pixel(4, 0)
-#
-#			# add them to the board 2D array
-#			add_to_board(white_rook)
-#			add_to_board(black_rook)
-#			add_to_board(white_knight)
-#			add_to_board(black_knight)
-#			add_to_board(white_bishop)
-#			add_to_board(black_bishop)
-#			add_to_board(white_qween)
-#			add_to_board(black_qween)
-#			add_to_board(white_king)
-#			add_to_board(black_king)
-#
-#		else:
-#			white_rook.position = grid_to_pixel(7, 7)
-#			black_rook.position = grid_to_pixel(7, 0)
-#			white_knight.position = grid_to_pixel(6, 7)
-#			black_knight.position = grid_to_pixel(6, 0)
-#			white_bishop.position = grid_to_pixel(5, 7)
-#			black_bishop.position = grid_to_pixel(5, 0)
-#			add_to_board(white_rook)
-#			add_to_board(black_rook)
-#			add_to_board(white_knight)
-#			add_to_board(black_knight)
-#			add_to_board(white_bishop)
-#			add_to_board(black_bishop)
 
 # create pices + set color + add them as childern to the grid + change the position
 func spawn_initial(path, isWhite: bool, x, y):

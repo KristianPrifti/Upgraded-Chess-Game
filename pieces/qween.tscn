@@ -5,3 +5,4 @@
 
 [node name="qween" instance=ExtResource("1_w85wk")]
 script = ExtResource("2_o8m8t")
+piece_type = "qween"
