@@ -37,6 +37,11 @@ var turn: int = 0
 # check if king is deleated to switch to game over screen
 var king_deleated = false
 var king_deleated_isWhite
+var promote_pawn: bool = false
+var promote_pawn_color: bool
+var promote_pawn_location: Vector2
+# this is so you wait for promotion
+var wait_for_promotion: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -60,6 +65,30 @@ func _process(delta):
 			king_deleated = false
 	
 	get_turn_player()
+
+func _input(event: InputEvent) -> void:
+	# promote pawn if you have to
+	if promote_pawn:
+		var piece
+		if Input.is_action_just_pressed("ui_r"):
+			piece = spawn_initial(pieces_list[0], promote_pawn_color, promote_pawn_location.x, promote_pawn_location.y)
+			complete_promotion(piece)
+		if Input.is_action_just_pressed("ui_k"):
+			piece = spawn_initial(pieces_list[1], promote_pawn_color, promote_pawn_location.x, promote_pawn_location.y)
+			complete_promotion(piece)
+		if Input.is_action_just_pressed("ui_b"):
+			piece = spawn_initial(pieces_list[2], promote_pawn_color, promote_pawn_location.x, promote_pawn_location.y)
+			complete_promotion(piece)
+		if Input.is_action_just_pressed("ui_q"):
+			piece = spawn_initial(pieces_list[3], promote_pawn_color, promote_pawn_location.x, promote_pawn_location.y)
+			complete_promotion(piece)
+		
+# this function is for the promotion so the 4 lines below were not copy pasted a lot
+func complete_promotion(piece):
+	board[promote_pawn_location.x][promote_pawn_location.y].queue_free()
+	add_to_board(piece)
+	promote_pawn = false
+	wait_for_promotion = false
 
 # makes the array into a 2D array
 func make_2d_array():
@@ -101,7 +130,7 @@ func is_in_grid(x, y):
 	return false
 
 func click_input():
-	if Input.is_action_just_pressed("ui_click") && controlling == false:
+	if Input.is_action_just_pressed("ui_click") && controlling == false && wait_for_promotion == false:
 		click1 = get_local_mouse_position()
 		var grid_position = pixel_to_grid(click1.x, click1.y)
 		if is_in_grid(grid_position.x, grid_position.y) && board[grid_position.x][grid_position.y] != null && \
@@ -114,7 +143,7 @@ func click_input():
 			return true
 
 func click_output():
-	if Input.is_action_just_pressed("ui_click") && controlling:
+	if Input.is_action_just_pressed("ui_click") && controlling && wait_for_promotion == false:
 		click2 = get_local_mouse_position()
 		var grid_position = pixel_to_grid(click2.x, click2.y)
 		if is_in_grid(grid_position.x, grid_position.y):
@@ -147,6 +176,15 @@ func move_piece(column0, row0, column1, row1):
 		board[column0][row0].position = grid_to_pixel(column1, row1)
 		board[column0][row0] = null
 		board[column1][row1] = piece
+		
+		# if the piece being moved is a pawn check if it needs to be promoted
+		if board[column1][row1].piece_type == "pawn":
+			if board[column1][row1].check_for_promotion(board[column1][row1].isWhite, row1):
+				promote_pawn = true
+				promote_pawn_color = board[column1][row1].isWhite
+				promote_pawn_location = Vector2(column1, row1)
+				wait_for_promotion = true;
+		
 		next_turn()
 		get_turn_player()
 
@@ -170,13 +208,6 @@ func add_active_symbol(x, y):
 	symbol.position = grid_to_pixel(x, y)
 	hold_moves[x][y] = symbol
 
-
-# save piece on board 2D array		
-func add_to_board(piece):
-	var piece_x = piece.position.x
-	var piece_y = piece.position.y
-	var piece_vector = pixel_to_grid(piece_x, piece_y)
-	board[piece_vector.x][piece_vector.y] = piece
 
 # spawn pices on their inital position
 func spawn_initial_pices():
@@ -241,6 +272,13 @@ func spawn_initial(path, isWhite: bool, x, y):
 	add_child(piece)
 	piece.position = grid_to_pixel(x, y)
 	return piece
+	
+# save piece on board 2D array		
+func add_to_board(piece):
+	var piece_x = piece.position.x
+	var piece_y = piece.position.y
+	var piece_vector = pixel_to_grid(piece_x, piece_y)
+	board[piece_vector.x][piece_vector.y] = piece
 
 
 

@@ -47,3 +47,9 @@ func get_possible_moves(position: Vector2, board, turn_player_isWhite):
 			possible_moves.append(move)
 	
 	return possible_moves
+
+func check_for_promotion(color, y):
+	if color && y == 0:
+		return true
+	if color == false && y == 7:
+		return true
