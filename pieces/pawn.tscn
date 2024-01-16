@@ -6,3 +6,4 @@
 [node name="pawn" instance=ExtResource("1_swtbf")]
 script = ExtResource("2_3osf8")
 piece_type = "pawn"
+is_chess_piece = true

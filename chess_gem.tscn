@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5170avfbk5rg"]
+
+[ext_resource type="Texture2D" uid="uid://dpiobsqssurnw" path="res://assets/chess_gem.png" id="1_6npg2"]
+[ext_resource type="Script" path="res://scripts/chess_gem.gd" id="1_ohry1"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_ohry1")
+piece_type = "gem"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_6npg2")

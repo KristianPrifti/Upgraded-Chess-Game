@@ -21,7 +21,6 @@ var pieces_list = [
 
 var active_symbol_path = preload("res://active_symbol.tscn")
 
-#var player_path = preload("res://player.tscn")
 
 # mouse click variabels
 var click1 = Vector2(0 ,0)
@@ -33,6 +32,9 @@ var controlling_piece
 var turn_player
 @onready var turn_node = $turn
 var turn: int = 0
+# gem path and var to keep track if gem was created this turn
+var chess_gem_path = preload("res://chess_gem.tscn")
+var gem_created_this_turn : bool
 
 # check if king is deleated to switch to game over screen
 var king_deleated = false
@@ -64,7 +66,7 @@ func _process(delta):
 			switch_to_end_scene(king_deleated_isWhite)
 			king_deleated = false
 	
-	get_turn_player()
+
 
 func _input(event: InputEvent) -> void:
 	# promote pawn if you have to
@@ -98,18 +100,6 @@ func make_2d_array():
 		for j in num_rows:
 			array[i].append(null)
 	return array
-
-# update turn
-func next_turn():
-	turn = turn + 1
-	turn_node.text = "Turn: " + str(turn)
-
-# get turn player
-func get_turn_player():
-	if turn % 2 == 1:
-		turn_player = $white_player
-	elif turn % 2 == 0:
-		turn_player = $black_player
 
 # change the column and raw number to pixel values 
 func grid_to_pixel(column, row):
@@ -161,18 +151,26 @@ func click_output():
 func move_piece(column0, row0, column1, row1):
 	# this if statemnt checks if the player clicked twice in a row in the same spot
 	if column0 != column1 || row0 != row1:
-		if board[column1][row1] != null && board[column0][row0].isWhite == board[column1][row1].isWhite:
+		if board[column1][row1] != null && board[column1][row1].is_chess_piece && board[column0][row0].isWhite == board[column1][row1].isWhite:
 			return
+			
 		var piece = board[column0][row0]
 		if board[column1][row1] != null:
+			var deleated_piece = board[column1][row1]
 			var deleated_type = board[column1][row1].piece_type
-			var deleated_isWhite = board[column1][row1].isWhite
-			board[column1][row1].queue_free()
-			# if a king was deleated 
-			if deleated_type == "king":
-				king_deleated = true
-				king_deleated_isWhite = deleated_isWhite
-		
+			
+			if deleated_piece.is_chess_piece:
+				var deleated_isWhite = board[column1][row1].isWhite
+				board[column1][row1].queue_free()
+				# if a king was deleated 
+				if deleated_type == "king":
+					king_deleated = true
+					king_deleated_isWhite = deleated_isWhite
+			
+			# add gems to player's gem amount if a gem was captured
+			if deleated_type == "gem":
+				collect_gem()
+				
 		board[column0][row0].position = grid_to_pixel(column1, row1)
 		board[column0][row0] = null
 		board[column1][row1] = piece
@@ -187,6 +185,7 @@ func move_piece(column0, row0, column1, row1):
 		
 		next_turn()
 		get_turn_player()
+		add_gems()
 
 # check if there are any more kings of the deleated color 
 func kings_are_left(color):
@@ -281,4 +280,42 @@ func add_to_board(piece):
 	board[piece_vector.x][piece_vector.y] = piece
 
 
+# update turn
+func next_turn():
+	turn = turn + 1
+	turn_node.text = "Turn: " + str(turn)
+	gem_created_this_turn = false
 
+# get turn player
+func get_turn_player():
+	if turn % 2 == 1:
+		turn_player = $white_player
+	elif turn % 2 == 0:
+		turn_player = $black_player
+
+# add gems to the board based on the turn number
+func add_gems():
+	if turn % 3 == 0 && gem_created_this_turn == false:
+		var possible = 0
+		# do a max of 100 tries to create gem on the middle 4 rows
+		while possible < 100:
+			var random_colums = randi() % 8
+			var random_row = randi() % 4 + 2
+			if board[random_colums][random_row] == null:
+				create_gem(random_colums, random_row)
+				gem_created_this_turn = true
+				return
+			
+			possible += 1
+
+# create the gem object that add_gems() will add
+func create_gem(x, y):
+	var gem = chess_gem_path.instantiate()
+	add_child(gem)
+	gem.position = grid_to_pixel(x, y)
+	board[x][y] = gem
+
+# collect gem and added to the players total amount
+func collect_gem():
+	# do something with the turn player
+	pass

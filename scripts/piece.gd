@@ -2,6 +2,7 @@ extends Node2D
 
 @export var isWhite: bool
 @export var piece_type: String
+@export var is_chess_piece: bool
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -21,3 +22,8 @@ func is_in_grid(position: Vector2):
 	if position.x >= 0 && position.x < 8 && position.y >=0 && position.y < 8:
 		return true
 	return false
+	
+# check if the square is null or a gem
+func possible_square(x, y, board):
+	if board[x][y] == null || board[x][y].piece_type == "gem":
+		return true

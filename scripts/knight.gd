@@ -19,7 +19,7 @@ func get_possible_moves(position: Vector2, board, turn_player_isWhite):
 	# remove out of board moves or moves that will end in a piece of the same color
 	for i in moves_to_add:
 		var move = position + i
-		if is_in_grid(move) && (board[move.x][move.y] == null || board[move.x][move.y].isWhite != turn_player_isWhite):
+		if is_in_grid(move) && (possible_square(move.x, move.y, board) || board[move.x][move.y].isWhite != turn_player_isWhite):
 			possible_moves.append(move)
 	
 	return possible_moves
