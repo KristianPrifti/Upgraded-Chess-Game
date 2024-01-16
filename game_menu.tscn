@@ -250,11 +250,9 @@ layout_mode = 2
 script = ExtResource("2_4gq53")
 
 [node name="white_player" parent="ChessBoard/grid" instance=ExtResource("3_armrn")]
-position = Vector2(-600, 0)
 isWhite = true
 
 [node name="black_player" parent="ChessBoard/grid" instance=ExtResource("3_armrn")]
-position = Vector2(-600, 50)
 
 [node name="turn" type="Label" parent="ChessBoard/grid"]
 offset_left = 950.0
@@ -262,6 +260,18 @@ offset_top = -50.0
 offset_right = 1150.0
 offset_bottom = 100.0
 text = "Turn: 0"
+
+[node name="white_gems" type="Label" parent="ChessBoard/grid"]
+offset_top = 830.0
+offset_right = 62.0
+offset_bottom = 856.0
+text = "Gems: 0"
+
+[node name="black_gems" type="Label" parent="ChessBoard/grid"]
+offset_top = -50.0
+offset_right = 62.0
+offset_bottom = -24.0
+text = "Gems: 0"
 
 [node name="active_squares" type="Node2D" parent="."]
 position = Vector2(600, 140)

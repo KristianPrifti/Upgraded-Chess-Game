@@ -35,6 +35,8 @@ var turn: int = 0
 # gem path and var to keep track if gem was created this turn
 var chess_gem_path = preload("res://chess_gem.tscn")
 var gem_created_this_turn : bool
+var white_gems : int
+var black_gems : int
 
 # check if king is deleated to switch to game over screen
 var king_deleated = false
@@ -124,7 +126,7 @@ func click_input():
 		click1 = get_local_mouse_position()
 		var grid_position = pixel_to_grid(click1.x, click1.y)
 		if is_in_grid(grid_position.x, grid_position.y) && board[grid_position.x][grid_position.y] != null && \
-		board[grid_position.x][grid_position.y].isWhite == turn_player.isWhite:
+		board[grid_position.x][grid_position.y].is_chess_piece && board[grid_position.x][grid_position.y].isWhite == turn_player.isWhite:
 			controlling_piece = board[grid_position.x][grid_position.y]
 			
 			var moves = controlling_piece.get_possible_moves(grid_position, board, turn_player.isWhite)
@@ -169,6 +171,7 @@ func move_piece(column0, row0, column1, row1):
 			
 			# add gems to player's gem amount if a gem was captured
 			if deleated_type == "gem":
+				board[column1][row1].queue_free()
 				collect_gem()
 				
 		board[column0][row0].position = grid_to_pixel(column1, row1)
@@ -317,5 +320,10 @@ func create_gem(x, y):
 
 # collect gem and added to the players total amount
 func collect_gem():
-	# do something with the turn player
-	pass
+	if turn_player.isWhite:
+		white_gems += 3
+		$white_gems.text = "Gems: " + str(white_gems)
+	if turn_player.isWhite == false:
+		black_gems += 3
+		$black_gems.text = "Gems: " + str(black_gems)
+
