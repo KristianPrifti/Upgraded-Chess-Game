@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://c27gyc04ht5nt"]
+
+[ext_resource type="Texture2D" uid="uid://b3d5dpg6nvgew" path="res://upgrade_window.png" id="1_e1rcc"]
+[ext_resource type="Texture2D" uid="uid://xv54rqp0qgeh" path="res://pawn_group_temp.png" id="2_tumsu"]
+
+[node name="Node2D" type="Control"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 3
+anchors_preset = 0
+offset_bottom = 5.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(100, 50)
+texture = ExtResource("1_e1rcc")
+
+[node name="Button" type="Button" parent="Sprite2D"]
+offset_top = 5.0
+offset_right = 95.0
+offset_bottom = 45.0
+text = "Cost"
+
+[node name="Label" type="Label" parent="Sprite2D"]
+offset_top = -45.0
+offset_right = 95.0
+text = "Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PawnGroupTemp" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(-50, 0)
+texture = ExtResource("2_tumsu")
