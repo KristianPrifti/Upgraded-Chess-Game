@@ -11,5 +11,15 @@ func _process(delta):
 	pass
 
 # change the scene to the game scene
-func _on_button_pressed():
+func _on_play_pressed():
 	get_tree().change_scene_to_file("res://game_menu.tscn")
+
+# change the scene to the game scene
+func _on_settings_pressed():
+	pass # Replace with function body.
+
+# quit the game
+func _on_quit_pressed():
+	get_tree().quit()
+
+
