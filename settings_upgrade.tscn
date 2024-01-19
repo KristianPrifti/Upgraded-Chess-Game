@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://0pe3q1wv6bci"]
+
+[ext_resource type="Texture2D" uid="uid://dgrb4od7kos3n" path="res://pawn_group_temp_settings.png" id="1_esysf"]
+
+[node name="settings_upgrade" type="Control"]
+custom_minimum_size = Vector2(1600, 100)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="icon" type="Sprite2D" parent="."]
+position = Vector2(50, 50)
+texture = ExtResource("1_esysf")
+
+[node name="name" type="Label" parent="."]
+layout_mode = 0
+offset_left = 100.0
+offset_right = 600.0
+offset_bottom = 100.0
+text = "Name of the Ability"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CheckButton" type="CheckButton" parent="."]
+layout_mode = 0
+offset_left = 1500.0
+offset_right = 1544.0
+offset_bottom = 50.0
+scale = Vector2(2, 2)
+
+[node name="description" type="Label" parent="."]
+layout_mode = 0
+offset_left = 600.0
+offset_right = 1500.0
+offset_bottom = 100.0
+text = "Description of the ability goes here"
+horizontal_alignment = 1
+vertical_alignment = 1

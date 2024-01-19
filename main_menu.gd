@@ -16,7 +16,7 @@ func _on_play_pressed():
 
 # change the scene to the game scene
 func _on_settings_pressed():
-	pass # Replace with function body.
+	get_tree().change_scene_to_file("res://settings.tscn")
 
 # quit the game
 func _on_quit_pressed():
