@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://0pe3q1wv6bci"]
+[gd_scene load_steps=3 format=3 uid="uid://0pe3q1wv6bci"]
 
 [ext_resource type="Texture2D" uid="uid://dgrb4od7kos3n" path="res://pawn_group_temp_settings.png" id="1_esysf"]
+[ext_resource type="Script" path="res://scripts/settings_upgrade.gd" id="1_ldjtf"]
 
 [node name="settings_upgrade" type="Control"]
 custom_minimum_size = Vector2(1600, 100)
@@ -10,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ldjtf")
 
 [node name="icon" type="Sprite2D" parent="."]
 position = Vector2(50, 50)
@@ -30,6 +32,7 @@ offset_left = 1500.0
 offset_right = 1544.0
 offset_bottom = 50.0
 scale = Vector2(2, 2)
+button_pressed = true
 
 [node name="description" type="Label" parent="."]
 layout_mode = 0

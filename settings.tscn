@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b2wh1rdexhfl7"]
 
-[ext_resource type="PackedScene" uid="uid://0pe3q1wv6bci" path="res://settings_upgrade.tscn" id="1_ix0h1"]
+[ext_resource type="Script" path="res://scripts/settings_menu.gd" id="1_dvp63"]
 
 [node name="settings" type="Node2D"]
 
@@ -17,42 +17,7 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="settings_upgrade" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_ix0h1")]
-layout_mode = 2
-
-[node name="settings_upgrade2" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_ix0h1")]
-layout_mode = 2
-
-[node name="settings_upgrade3" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_ix0h1")]
-layout_mode = 2
-
-[node name="settings_upgrade4" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_ix0h1")]
-layout_mode = 2
-
-[node name="settings_upgrade5" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_ix0h1")]
-layout_mode = 2
-
-[node name="settings_upgrade6" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_ix0h1")]
-layout_mode = 2
-
-[node name="settings_upgrade7" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_ix0h1")]
-layout_mode = 2
-
-[node name="settings_upgrade8" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_ix0h1")]
-layout_mode = 2
-
-[node name="settings_upgrade9" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_ix0h1")]
-layout_mode = 2
-
-[node name="settings_upgrade10" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_ix0h1")]
-layout_mode = 2
-
-[node name="settings_upgrade11" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_ix0h1")]
-layout_mode = 2
-
-[node name="settings_upgrade12" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_ix0h1")]
-layout_mode = 2
+script = ExtResource("1_dvp63")
 
 [node name="name" type="Label" parent="."]
 offset_left = 860.0

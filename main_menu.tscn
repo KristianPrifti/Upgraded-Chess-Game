@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://c8x1wax2ggpc4"]
 
-[ext_resource type="Script" path="res://main_menu.gd" id="1_bt52x"]
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_ay44k"]
 
 [node name="main menu" type="Node2D"]
-script = ExtResource("1_bt52x")
+script = ExtResource("1_ay44k")
 
 [node name="play" type="Button" parent="."]
 offset_left = 710.0
