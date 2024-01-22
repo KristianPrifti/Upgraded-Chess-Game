@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://0pe3q1wv6bci"]
 
-[ext_resource type="Texture2D" uid="uid://dgrb4od7kos3n" path="res://pawn_group_temp_settings.png" id="1_esysf"]
 [ext_resource type="Script" path="res://scripts/settings_upgrade.gd" id="1_ldjtf"]
+[ext_resource type="Texture2D" uid="uid://bgfp18etdq0qy" path="res://abilities_assets/Peasants_Unite.png" id="2_2ucex"]
 
 [node name="settings_upgrade" type="Control"]
 custom_minimum_size = Vector2(1600, 100)
@@ -15,7 +15,7 @@ script = ExtResource("1_ldjtf")
 
 [node name="icon" type="Sprite2D" parent="."]
 position = Vector2(50, 50)
-texture = ExtResource("1_esysf")
+texture = ExtResource("2_2ucex")
 
 [node name="name" type="Label" parent="."]
 layout_mode = 0
@@ -25,6 +25,7 @@ offset_bottom = 100.0
 text = "Name of the Ability"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="CheckButton" type="CheckButton" parent="."]
 layout_mode = 0
@@ -42,3 +43,4 @@ offset_bottom = 100.0
 text = "Description of the ability goes here"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2

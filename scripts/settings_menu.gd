@@ -18,7 +18,22 @@ func create_settings_ability(icon_path, ability_name, ability_description):
 	window.create_setting_upgrade(icon_path, ability_name, ability_description)
 
 func create_all_abilities():
-	var good_name_icon_path = "res://pawn_group_temp_settings.png"
-	var good_name_ability_name = "good_name_"
-	var good_name_ability_description = "ability_description_high_quality"
-	create_settings_ability(good_name_icon_path, good_name_ability_name, good_name_ability_description)
+	var all_icon_path = "res://abilities_assets/All.png"
+	var all_description = "USE ALL ABILITIES IN THE GAME."
+	create_settings_ability(all_icon_path, "All Abilities", all_description)
+	
+	var peasants_unite_icon_path = "res://abilities_assets/Peasants_Unite.png"
+	var peasants_unite_description = "All the pawns that can move foreward, will move foreward one space."
+	create_settings_ability(peasants_unite_icon_path, "Peasants Unite", peasants_unite_description)
+	
+	var color_switch_icon_path = "res://abilities_assets/Color_Switch.png"
+	var color_switch_description = "Bishop can move to an ajecent space with a different color from the currrent space."
+	create_settings_ability(color_switch_icon_path, "Color Switch", color_switch_description)
+	
+	var early_retirement_icon_path = "res://abilities_assets/Early_Retirement.png"
+	var early_retirement_description = "Pick one of your pieces. That piece now becomes the king."
+	create_settings_ability(early_retirement_icon_path, "Early Retirement", early_retirement_description)
+	
+	var sacrificial_juice_icon_path = "res://abilities_assets/Sacrificial_Juice.png"
+	var sacrificial_juice_description = "Pick one of your pieces. That piece piece is destroyed and you get gems equal to that piece's value. (pawn = 1, knight/bishop = 3, rook = 5, qween = 9)"
+	create_settings_ability(sacrificial_juice_icon_path, "Sacrificial Juice", sacrificial_juice_description)

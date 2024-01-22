@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgrb4od7kos3n"
-path="res://.godot/imported/pawn_group_temp_settings.png-2886aa352725d6608d5d9ef30a9ee9b3.ctex"
+uid="uid://bgfp18etdq0qy"
+path="res://.godot/imported/Peasants_Unite.png-b311e4781eb7e03fc9b56e315593f59d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://pawn_group_temp_settings.png"
-dest_files=["res://.godot/imported/pawn_group_temp_settings.png-2886aa352725d6608d5d9ef30a9ee9b3.ctex"]
+source_file="res://abilities_assets/Peasants_Unite.png"
+dest_files=["res://.godot/imported/Peasants_Unite.png-b311e4781eb7e03fc9b56e315593f59d.ctex"]
 
 [params]
 

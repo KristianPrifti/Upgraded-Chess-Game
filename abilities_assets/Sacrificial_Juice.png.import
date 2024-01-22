@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xv54rqp0qgeh"
-path="res://.godot/imported/pawn_group_temp.png-e4f64d106e8cfcd3029086c29d5ff8b1.ctex"
+uid="uid://hx21x115frvp"
+path="res://.godot/imported/Sacrificial_Juice.png-39fbfc79616b9719983b10635ce31860.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://pawn_group_temp.png"
-dest_files=["res://.godot/imported/pawn_group_temp.png-e4f64d106e8cfcd3029086c29d5ff8b1.ctex"]
+source_file="res://abilities_assets/Sacrificial_Juice.png"
+dest_files=["res://.godot/imported/Sacrificial_Juice.png-39fbfc79616b9719983b10635ce31860.ctex"]
 
 [params]
 

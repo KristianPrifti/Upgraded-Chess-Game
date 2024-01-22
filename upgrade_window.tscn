@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c27gyc04ht5nt"]
 
 [ext_resource type="Texture2D" uid="uid://b3d5dpg6nvgew" path="res://upgrade_window.png" id="1_e1rcc"]
-[ext_resource type="Texture2D" uid="uid://xv54rqp0qgeh" path="res://pawn_group_temp.png" id="2_tumsu"]
+[ext_resource type="Texture2D" uid="uid://bgfp18etdq0qy" path="res://abilities_assets/Peasants_Unite.png" id="2_eh0g6"]
 
 [node name="Node2D" type="Control"]
 custom_minimum_size = Vector2(500, 200)
@@ -22,8 +22,8 @@ text = "Cost"
 
 [node name="icon" type="Sprite2D" parent="Sprite2D"]
 position = Vector2(-180, 30)
-scale = Vector2(1.333, 1.333)
-texture = ExtResource("2_tumsu")
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("2_eh0g6")
 
 [node name="description" type="Label" parent="Sprite2D"]
 offset_left = -110.0
@@ -33,6 +33,7 @@ offset_bottom = 20.0
 text = "Description"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="cooldown" type="Label" parent="Sprite2D"]
 offset_left = -110.0
@@ -48,6 +49,6 @@ offset_left = -240.0
 offset_top = -90.0
 offset_right = -120.0
 offset_bottom = -40.0
-text = "Name"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
