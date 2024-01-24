@@ -10,7 +10,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	all_is_on()
 
 func create_settings_ability(icon_path, ability_name, ability_description):
 	var window = window_path.instantiate()
@@ -23,7 +23,7 @@ func create_all_abilities():
 	create_settings_ability(all_icon_path, "All Abilities", all_description)
 	
 	var peasants_unite_icon_path = "res://abilities_assets/Peasants_Unite.png"
-	var peasants_unite_description = "All the pawns that can move foreward, will move foreward one space."
+	var peasants_unite_description = "All the pawns that can move forward, will move foreward one space."
 	create_settings_ability(peasants_unite_icon_path, "Peasants Unite", peasants_unite_description)
 	
 	var color_switch_icon_path = "res://abilities_assets/Color_Switch.png"
@@ -37,3 +37,17 @@ func create_all_abilities():
 	var sacrificial_juice_icon_path = "res://abilities_assets/Sacrificial_Juice.png"
 	var sacrificial_juice_description = "Pick one of your pieces. That piece piece is destroyed and you get gems equal to that piece's value. (pawn = 1, knight/bishop = 3, rook = 5, qween = 9)"
 	create_settings_ability(sacrificial_juice_icon_path, "Sacrificial Juice", sacrificial_juice_description)
+
+
+# this function makes all other buttons disabled if the "all abilities" button is on
+func all_is_on():
+	var children = get_child_count()
+	var child_number = 1
+	if get_child(0).get_node("CheckButton").button_pressed:
+		while(child_number < children):
+			get_child(child_number).get_node("CheckButton").disabled = true
+			child_number+=1
+	else:
+		while(child_number < children):
+			get_child(child_number).get_node("CheckButton").disabled = false
+			child_number+=1
