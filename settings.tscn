@@ -1,23 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://b2wh1rdexhfl7"]
 
-[ext_resource type="Script" path="res://scripts/settings_menu.gd" id="1_dvp63"]
+[ext_resource type="Script" path="res://scripts/back_button.gd" id="1_gj028"]
 
 [node name="settings" type="Node2D"]
-
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
-offset_left = 160.0
-offset_top = 230.0
-offset_right = 1760.0
-offset_bottom = 980.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-horizontal_scroll_mode = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-script = ExtResource("1_dvp63")
 
 [node name="name" type="Label" parent="."]
 offset_left = 860.0
@@ -27,3 +12,11 @@ offset_bottom = 170.0
 text = "Settings"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="back_button" type="Button" parent="."]
+offset_right = 250.0
+offset_bottom = 150.0
+text = "Back"
+script = ExtResource("1_gj028")
+
+[connection signal="pressed" from="back_button" to="back_button" method="_on_pressed"]

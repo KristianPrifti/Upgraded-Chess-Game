@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/grid.gd" id="2_4gq53"]
 [ext_resource type="PackedScene" uid="uid://psptmt5hck0t" path="res://player.tscn" id="3_armrn"]
 [ext_resource type="Script" path="res://scripts/active_squares.gd" id="4_8rch1"]
-[ext_resource type="PackedScene" uid="uid://c27gyc04ht5nt" path="res://upgrade_window.tscn" id="5_kwmur"]
+[ext_resource type="Script" path="res://scripts/shop.gd" id="5_oawt1"]
 
 [node name="game_menu" type="Node2D"]
 
@@ -285,55 +285,8 @@ offset_top = 100.0
 offset_right = 558.0
 offset_bottom = 300.0
 horizontal_scroll_mode = 0
+script = ExtResource("5_oawt1")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+[node name="shop" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="Node2D" parent="ScrollContainer/VBoxContainer" instance=ExtResource("5_kwmur")]
-layout_mode = 2
-
-[node name="Node2D2" parent="ScrollContainer/VBoxContainer" instance=ExtResource("5_kwmur")]
-layout_mode = 2
-
-[node name="Node2D3" parent="ScrollContainer/VBoxContainer" instance=ExtResource("5_kwmur")]
-layout_mode = 2
-
-[node name="Node2D4" parent="ScrollContainer/VBoxContainer" instance=ExtResource("5_kwmur")]
-layout_mode = 2
-
-[node name="Node2D5" parent="ScrollContainer/VBoxContainer" instance=ExtResource("5_kwmur")]
-layout_mode = 2
-
-[node name="Node2D6" parent="ScrollContainer/VBoxContainer" instance=ExtResource("5_kwmur")]
-layout_mode = 2
-
-[node name="Node2D7" parent="ScrollContainer/VBoxContainer" instance=ExtResource("5_kwmur")]
-layout_mode = 2
-
-[node name="Node2D8" parent="ScrollContainer/VBoxContainer" instance=ExtResource("5_kwmur")]
-layout_mode = 2
-
-[node name="Node2D9" parent="ScrollContainer/VBoxContainer" instance=ExtResource("5_kwmur")]
-layout_mode = 2
-
-[node name="Node2D10" parent="ScrollContainer/VBoxContainer" instance=ExtResource("5_kwmur")]
-layout_mode = 2
-
-[node name="Node2D11" parent="ScrollContainer/VBoxContainer" instance=ExtResource("5_kwmur")]
-layout_mode = 2
-
-[node name="Node2D12" parent="ScrollContainer/VBoxContainer" instance=ExtResource("5_kwmur")]
-layout_mode = 2
-
-[node name="Node2D13" parent="ScrollContainer/VBoxContainer" instance=ExtResource("5_kwmur")]
-layout_mode = 2
-
-[node name="Node2D14" parent="ScrollContainer/VBoxContainer" instance=ExtResource("5_kwmur")]
-layout_mode = 2
-
-[node name="Node2D15" parent="ScrollContainer/VBoxContainer" instance=ExtResource("5_kwmur")]
-layout_mode = 2
-
-[node name="Node2D16" parent="ScrollContainer/VBoxContainer" instance=ExtResource("5_kwmur")]
-layout_mode = 2

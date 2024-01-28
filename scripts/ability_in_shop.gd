@@ -10,8 +10,8 @@ func _ready():
 func _process(delta):
 	pass
 
-func create_setting_upgrade(icon_path, cooldown, ability_name, ability_description):
-	$icon.texture = ResourceLoader.load(icon_path)
-	$cooldown.text += cooldown
+func create_ability(icon_texture, cooldown, ability_name, ability_description):
+	$icon.texture = icon_texture
+	$cooldown.text = cooldown
 	$name.text = ability_name
 	$description.text = ability_description
