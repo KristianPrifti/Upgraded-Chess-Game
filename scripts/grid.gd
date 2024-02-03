@@ -172,11 +172,12 @@ func move_piece(column0, row0, column1, row1):
 			# add gems to player's gem amount if a gem was captured
 			if deleated_type == "gem":
 				board[column1][row1].queue_free()
-				collect_gem()
+				collect_gem(3)
 				
 		board[column0][row0].position = grid_to_pixel(column1, row1)
 		board[column0][row0] = null
 		board[column1][row1] = piece
+		collect_gem_at_end_of_turn(1)
 		
 		# if the piece being moved is a pawn check if it needs to be promoted
 		if board[column1][row1].piece_type == "pawn":
@@ -319,11 +320,16 @@ func create_gem(x, y):
 	board[x][y] = gem
 
 # collect gem and added to the players total amount
-func collect_gem():
+func collect_gem(gems):
 	if turn_player.isWhite:
-		white_gems += 3
+		white_gems += gems
 		$white_gems.text = "Gems: " + str(white_gems)
 	if turn_player.isWhite == false:
-		black_gems += 3
+		black_gems += gems
 		$black_gems.text = "Gems: " + str(black_gems)
 
+func collect_gem_at_end_of_turn(gems):
+	white_gems += gems
+	$white_gems.text = "Gems: " + str(white_gems)
+	black_gems += gems
+	$black_gems.text = "Gems: " + str(black_gems)

@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://c27gyc04ht5nt"]
 
-[ext_resource type="Texture2D" uid="uid://b3d5dpg6nvgew" path="res://upgrade_window.png" id="1_e1rcc"]
 [ext_resource type="Texture2D" uid="uid://bgfp18etdq0qy" path="res://abilities_assets/Peasants_Unite.png" id="2_eh0g6"]
 [ext_resource type="Script" path="res://scripts/ability_in_shop.gd" id="2_htw0g"]
+[ext_resource type="Texture2D" uid="uid://b3d5dpg6nvgew" path="res://assets/upgrade_window.png" id="2_ja60n"]
 
 [node name="Node2D" type="Control"]
 custom_minimum_size = Vector2(500, 200)
@@ -13,7 +13,7 @@ script = ExtResource("2_htw0g")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(250, 100)
-texture = ExtResource("1_e1rcc")
+texture = ExtResource("2_ja60n")
 
 [node name="cost" type="Button" parent="."]
 layout_mode = 0
