@@ -1,4 +1,4 @@
-extends Node
+extends "res://scripts/ability_in_shop.gd"
 
 
 # Called when the node enters the scene tree for the first time.
