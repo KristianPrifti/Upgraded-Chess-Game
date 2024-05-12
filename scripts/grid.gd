@@ -7,7 +7,7 @@ var y_start = 50
 var offset = 100
 
 # array that will become a 2D array
-var board = []
+@export var board = []
 var hold_moves = []
 # list of paths to pices objects
 var pieces_list = [
@@ -283,7 +283,9 @@ func add_to_board(piece):
 	var piece_vector = pixel_to_grid(piece_x, piece_y)
 	board[piece_vector.x][piece_vector.y] = piece
 
-
+func get_board():
+	return board
+	
 # update turn
 func next_turn():
 	turn = turn + 1

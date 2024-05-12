@@ -4,14 +4,14 @@
 [ext_resource type="Script" path="res://scripts/ability_in_shop.gd" id="2_htw0g"]
 [ext_resource type="Texture2D" uid="uid://b3d5dpg6nvgew" path="res://assets/upgrade_window.png" id="2_ja60n"]
 
-[node name="Node2D" type="Control"]
+[node name="upgrade_window" type="Control"]
 custom_minimum_size = Vector2(500, 200)
 layout_mode = 3
 anchors_preset = 0
 offset_bottom = 5.0
 script = ExtResource("2_htw0g")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="backround_window" type="Sprite2D" parent="."]
 position = Vector2(250, 100)
 texture = ExtResource("2_ja60n")
 
