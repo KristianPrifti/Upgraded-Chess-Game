@@ -103,6 +103,26 @@ func make_2d_array():
 			array[i].append(null)
 	return array
 
+
+func ability_in_use():
+	hold_moves.clear()
+	hold_moves = make_2d_array()
+	get_node("../../").get_node("active_squares").remove_circles()
+	controlling = false
+	controlling_piece = null
+
+func get_board():
+	return board
+
+func get_hold_moves():
+	return hold_moves
+
+func get_num_colums():
+	return num_colums
+
+func get_num_rows():
+	return num_rows
+
 # change the column and raw number to pixel values 
 func grid_to_pixel(column, row):
 	var pixel_x = x_start + offset * column
@@ -193,8 +213,8 @@ func move_piece(column0, row0, column1, row1):
 
 # check if there are any more kings of the deleated color 
 func kings_are_left(color):
-	for i in 8:
-		for j in 8:
+	for i in num_colums:
+		for j in num_rows:
 			if board[i][j] != null:
 				if board[i][j].piece_type == "king" && board[i][j].isWhite == color:
 					return true
@@ -283,9 +303,6 @@ func add_to_board(piece):
 	var piece_vector = pixel_to_grid(piece_x, piece_y)
 	board[piece_vector.x][piece_vector.y] = piece
 
-func get_board():
-	return board
-	
 # update turn
 func next_turn():
 	turn = turn + 1
@@ -298,6 +315,7 @@ func get_turn_player():
 		turn_player = $white_player
 	elif turn % 2 == 0:
 		turn_player = $black_player
+	return turn_player
 
 # add gems to the board based on the turn number
 func add_gems():

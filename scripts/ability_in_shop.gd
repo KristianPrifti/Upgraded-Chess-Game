@@ -1,14 +1,18 @@
 extends Control
 
 var board: Array
+var turn_player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Make sure to call these two on the _process() method of every ability
 	board = get_node("../../../%grid").get_board()
+	turn_player = get_node("../../../%grid").get_turn_player()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+	
 
 func create_ability(icon_texture, cooldown, ability_name, ability_description):
 	$icon.texture = icon_texture
