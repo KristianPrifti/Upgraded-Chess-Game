@@ -9,12 +9,13 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	board = get_node("../../../%grid").get_board()
-	turn_player = get_node("../../../%grid").get_turn_player()
+	pass
 
 
 func use_ability():
 	get_node("../../../%grid").ability_in_use()
+	board = get_node("../../../%grid").get_board()
+	turn_player = get_node("../../../%grid").get_turn_player()
 	
 	if turn_player.isWhite:
 		for i in get_node("../../../%grid").get_num_rows():

@@ -6,3 +6,5 @@
 script = ExtResource("1_bfhq1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="counter_img" type="Sprite2D" parent="Sprite2D"]

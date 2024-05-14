@@ -19,8 +19,8 @@ texture = ExtResource("2_2ucex")
 
 [node name="name" type="Label" parent="."]
 layout_mode = 0
-offset_left = 200.0
-offset_right = 600.0
+offset_left = 100.0
+offset_right = 500.0
 offset_bottom = 100.0
 text = "Name of the Ability"
 horizontal_alignment = 1
@@ -37,7 +37,7 @@ button_pressed = true
 
 [node name="description" type="Label" parent="."]
 layout_mode = 0
-offset_left = 600.0
+offset_left = 700.0
 offset_right = 1500.0
 offset_bottom = 100.0
 text = "Description of the ability goes here"
@@ -47,10 +47,20 @@ autowrap_mode = 2
 
 [node name="cooldown" type="Label" parent="."]
 layout_mode = 0
-offset_left = 100.0
-offset_right = 200.0
+offset_left = 500.0
+offset_right = 600.0
 offset_bottom = 100.0
 text = "Cooldown:
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="cost" type="Label" parent="."]
+layout_mode = 0
+offset_left = 600.0
+offset_right = 700.0
+offset_bottom = 100.0
+text = "Cost: 
 "
 horizontal_alignment = 1
 vertical_alignment = 1

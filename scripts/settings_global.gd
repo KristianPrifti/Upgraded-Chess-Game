@@ -16,36 +16,41 @@ func _process(delta):
 	all_is_on()
 	
 
-func create_settings_ability(icon_path, cooldown, ability_name, ability_description):
+func create_settings_ability(icon_path, cooldown, cost, ability_name, ability_description):
 	var window = window_path.instantiate()
 	get_child(0).add_child(window)
-	window.create_setting_upgrade(icon_path, cooldown, ability_name, ability_description)
+	window.create_setting_upgrade(icon_path, cooldown, cost, ability_name, ability_description)
 
 func create_all_abilities():
 	var all_icon_path = "res://abilities_assets/All.png"
 	var all_cooldown = "N/A"
+	var all_cost = "N/A"
 	var all_description = "USE ALL ABILITIES IN THE GAME."
-	create_settings_ability(all_icon_path, all_cooldown, "All Abilities", all_description)
+	create_settings_ability(all_icon_path, all_cooldown, all_cost, "All Abilities", all_description)
 	
 	var peasants_unite_icon_path = "res://abilities_assets/Peasants_Unite.png"
 	var peasants_unite_cooldown = "1"
+	var peasants_unite_cost = "1"
 	var peasants_unite_description = "All the pawns that can move forward, will move foreward one space."
-	create_settings_ability(peasants_unite_icon_path, peasants_unite_cooldown, "Peasants Unite", peasants_unite_description)
+	create_settings_ability(peasants_unite_icon_path, peasants_unite_cooldown, peasants_unite_cost, "Peasants Unite", peasants_unite_description)
 	
 	var color_switch_icon_path = "res://abilities_assets/Color_Switch.png"
 	var color_switch_cooldown = "1"
+	var color_switch_cost = "1"
 	var color_switch_description = "Bishop can move to an ajecent space with a different color from the currrent space."
-	create_settings_ability(color_switch_icon_path, color_switch_cooldown, "Color Switch", color_switch_description)
+	create_settings_ability(color_switch_icon_path, color_switch_cooldown, color_switch_cost, "Color Switch", color_switch_description)
 	
 	var early_retirement_icon_path = "res://abilities_assets/Early_Retirement.png"
 	var early_retirement_cooldown = "5"
+	var early_retirement_cost = "5"
 	var early_retirement_description = "Pick one of your pieces. That piece now becomes the king."
-	create_settings_ability(early_retirement_icon_path, early_retirement_cooldown, "Early Retirement", early_retirement_description)
+	create_settings_ability(early_retirement_icon_path, early_retirement_cooldown, early_retirement_cost, "Early Retirement", early_retirement_description)
 	
 	var sacrificial_juice_icon_path = "res://abilities_assets/Sacrificial_Juice.png"
 	var sacrificial_juice_cooldown = "3"
+	var sacrificial_juice_cost = "3"
 	var sacrificial_juice_description = "Pick one of your pieces. That piece piece is destroyed and you get gems equal to that piece's value. (pawn = 1, knight/bishop = 3, rook = 5, qween = 9)"
-	create_settings_ability(sacrificial_juice_icon_path, sacrificial_juice_cooldown, "Sacrificial Juice", sacrificial_juice_description)
+	create_settings_ability(sacrificial_juice_icon_path, sacrificial_juice_cooldown, sacrificial_juice_cost, "Sacrificial Juice", sacrificial_juice_description)
 	
 	
 

@@ -11,10 +11,10 @@ func _ready():
 func _process(delta):
 	pass
 
-func create_settings_ability(icon_texture, cooldown: String, ability_name: String, ability_description):
+func create_settings_ability(icon_texture, cooldown: String, cost: String, ability_name: String, ability_description):
 	var window = upgrade_window_path.instantiate()
 	get_child(0).add_child(window)
-	window.create_ability(icon_texture, cooldown, ability_name, ability_description)
+	window.create_ability(icon_texture, cooldown, cost, ability_name, ability_description)
 	
 func create_all_abilities():
 	var abilities_list = settings_global.get_abilities()
@@ -24,5 +24,5 @@ func create_all_abilities():
 		pass
 		
 	while curr_ability < number_of_abilities:
-		create_settings_ability(abilities_list[curr_ability].get_node("icon").texture, abilities_list[curr_ability].get_node("cooldown").text, abilities_list[curr_ability].get_node("name").text, abilities_list[curr_ability].get_node("description").text)
+		create_settings_ability(abilities_list[curr_ability].get_node("icon").texture, abilities_list[curr_ability].get_node("cooldown").text, abilities_list[curr_ability].get_node("cost").text, abilities_list[curr_ability].get_node("name").text, abilities_list[curr_ability].get_node("description").text)
 		curr_ability += 1
