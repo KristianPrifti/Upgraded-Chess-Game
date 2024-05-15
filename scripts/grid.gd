@@ -123,6 +123,12 @@ func get_num_colums():
 func get_num_rows():
 	return num_rows
 
+func get_white_gems():
+	return white_gems
+
+func get_black_gems():
+	return black_gems
+
 # change the column and raw number to pixel values 
 func grid_to_pixel(column, row):
 	var pixel_x = x_start + offset * column
@@ -340,6 +346,7 @@ func create_gem(x, y):
 	board[x][y] = gem
 
 # collect gem and added to the players total amount
+# also used to subtract gems when abilities are used
 func collect_gem(gems):
 	if turn_player.isWhite:
 		white_gems += gems
