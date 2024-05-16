@@ -29,7 +29,7 @@ var controlling: bool = false
 var controlling_piece
 
 # player and turn counter
-var turn_player
+var turn_player: Node2D
 @onready var turn_node = $turn
 var turn: int = 0
 # gem path and var to keep track if gem was created this turn
@@ -54,6 +54,7 @@ func _ready():
 	spawn_initial_pices()
 	next_turn()
 	get_turn_player()
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -103,7 +104,8 @@ func make_2d_array():
 			array[i].append(null)
 	return array
 
-
+# --------- the functions between these lines are used by abilities -------------
+# ---------------(abilities may use other functions also)------------------------
 func ability_in_use():
 	hold_moves.clear()
 	hold_moves = make_2d_array()
@@ -128,6 +130,25 @@ func get_white_gems():
 
 func get_black_gems():
 	return black_gems
+
+func get_turn():
+	return turn
+
+func get_wait_for_promotion():
+	return wait_for_promotion
+
+func update_abilities():
+	for i in num_rows:
+		for j in num_colums:
+			var piece = board[i][j]
+			if piece != null && piece.is_chess_piece && piece.ability_in_progress:
+				piece.update_counter()
+				if piece.get_activate_turn() == 0:
+					load(piece.get_ability_path()).activate(i, j)
+		
+
+# -------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 
 # change the column and raw number to pixel values 
 func grid_to_pixel(column, row):
@@ -216,6 +237,7 @@ func move_piece(column0, row0, column1, row1):
 		next_turn()
 		get_turn_player()
 		add_gems()
+		update_abilities()
 
 # check if there are any more kings of the deleated color 
 func kings_are_left(color):

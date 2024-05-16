@@ -6,6 +6,19 @@ extends Node2D
 @export var is_chess_piece: bool
 # var pass_through is to check if a piece can pass through this object or it cannot move further
 @export var pass_through: bool
+# keeps track if an ability was used in this piece and it's waiting for the turn to be activated
+@export var ability_in_progress: bool
+# keeps track of what turn ability should be activated and what the ability is
+var activate_turn: int
+var ability_path: String
+
+
+#array that holds counters images
+var counter_paths = ["res://assets/counters assets/0counter.png", 
+"res://assets/counters assets/1counter.png", "res://assets/counters assets/2counter.png",
+"res://assets/counters assets/3counter.png", "res://assets/counters assets/4counter.png",
+"res://assets/counters assets/5counter.png"]
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -30,3 +43,29 @@ func is_in_grid(position: Vector2):
 func possible_square(x, y, board):
 	if board[x][y] == null || board[x][y].piece_type == "gem":
 		return true
+
+# functions to update counters
+func set_counter():
+	self.get_node("Sprite2D/counter_img").texture = ResourceLoader.load(counter_paths[activate_turn])
+	ability_in_progress = true
+
+func update_counter():
+	activate_turn-=1
+	if activate_turn < 0:
+		self.get_node("Sprite2D/counter_img").texture = null
+		ability_in_progress = false
+	else:
+		self.get_node("Sprite2D/counter_img").texture = ResourceLoader.load(counter_paths[activate_turn])
+		ability_in_progress = true
+
+func get_activate_turn():
+	return activate_turn
+
+func get_ability_path():
+	return ability_path
+
+func set_ability(cooldown, ability_path):
+	ability_in_progress = true
+	activate_turn = cooldown
+	self.ability_path = ability_path
+	

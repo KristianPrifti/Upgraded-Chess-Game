@@ -1,11 +1,13 @@
 extends Control
 
-var board: Array
+static var board: Array
 var turn_player
+var turn_to_activate: int
+var turn
 var cooldown: int
 var cost: int
 
-var GRID
+static var GRID
 
 #array that holds counters images
 var counter_paths = ["res://assets/counters assets/0counter.png", 
@@ -15,10 +17,6 @@ var counter_paths = ["res://assets/counters assets/0counter.png",
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#GRID = get_node("../../../%grid")
-	# Make sure to call these two on the use_ability method of every ability
-	#board = GRID.get_board()
-	#turn_player = GRID.get_turn_player()
 	pass
 
 
@@ -26,14 +24,22 @@ func _ready():
 func _process(delta):
 	pass
 	
+
+
 # set up the instance variables for the child abilities
-func setup(cooldwon, cost):
+func setup(cooldown, cost):
+	self.cooldown = cooldown
+	self.cost = cost
+	update_vars()
+	
+
+# called by child abilities to get updated variables
+func update_vars():
 	GRID = get_node("../../../%grid")
 	board = GRID.get_board()
 	turn_player = GRID.get_turn_player()
-	self.cooldown = cooldown
-	self.cost = cost
-	
+	turn = GRID.get_turn()
+
 
 func create_ability(icon_texture, cooldown, cost, ability_name, ability_description):
 	$icon.texture = icon_texture
@@ -62,15 +68,35 @@ func has_enough_gems() -> bool:
 	else:
 		return false
 
-# check if the ability can be used on the specific chess pieces
+# check if the ability can be used on the specific chess pieces and returns array 
+# with only the ones the ability can be used on
 # this function takes an array of pieces in case an ability affects mulpiple pieces
-func can_be_used(arr: Array) -> bool:
-	var count: int
+func can_be_used(arr: Array) -> Array:
+	var pieces_to_use = []
+	if (GRID.get_wait_for_promotion()):
+		return pieces_to_use
+	
 	for x in arr:
 		if x.get_node("Sprite2D/counter_img").texture == null:
-			count+=1
-	
-	if count > 0:
-		return true
-	return false
+			pieces_to_use.append(x)
+			
+	return pieces_to_use
 		
+
+func set_texture(arr: Array):
+	for x in arr:
+		var counter_to_use = turn - turn_to_activate
+		if counter_to_use < 0:
+			x.get_node("Sprite2D/counter_img").texture = null
+			x.ability_in_progress = false
+		else:
+			x.get_node("Sprite2D/counter_img").texture = ResourceLoader.load(counter_paths[counter_to_use])
+			x.ability_in_progress = true
+
+func update_texture():
+	var arr = []
+	for i in GRID.get_num_rows():
+		for j in GRID.get_num_colums():
+			if board[i][j] != null && board[i][j].is_chess_piece && board[i][j].ability_in_progress:
+				arr.append(board[i][j])
+	set_texture(arr)

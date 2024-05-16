@@ -13,30 +13,35 @@ func _process(delta):
 
 
 func use_ability():
-	#GRID = get_node("../../../%grid")
+	update_vars()
 	GRID.ability_in_use()
-	board = GRID.get_board()
-	turn_player = GRID.get_turn_player()
 	
-	
-	if turn_player.isWhite:
-		for i in GRID.get_num_rows():
-			for j in GRID.get_num_colums():
-				if board[i][j] != null && board[i][j].piece_type == "pawn":
-					var piece = board[i][j]
-					
-					if turn_player.isWhite == piece.isWhite && board[i][j].is_in_grid(Vector2(i, j - 1)) && board[i][j - 1] == null:
-						board[i][j].position = GRID.grid_to_pixel(i, j - 1)
-						board[i][j] = null
-						board[i][j - 1] = piece
-						
-	else:
-		for i in GRID.get_num_rows():
-			for j in GRID.get_num_colums():
-				if board[7 - i][7 - j] != null && board[7 - i][7 - j].piece_type == "pawn":
-					var piece = board[7- i][7- j]
+	if has_enough_gems():
 		
-					if !turn_player.isWhite && turn_player.isWhite == piece.isWhite && board[7 - i][7 - j].is_in_grid(Vector2(7 - i, 7- j + 1)) && board[7 - i][7 - j + 1] == null:
-						board[7 - i][7 - j].position = GRID.grid_to_pixel(7- i, 7- j + 1)
-						board[7 - i][7 - j] = null
-						board[7 - i][7 - j + 1] = piece
+		var pieces = collect_pieces_to_use_ability_on()
+		var pieces_to_use = can_be_used(pieces)
+		if pieces_to_use.size() != 0:
+			GRID.collect_gem(-cost)
+			for x in pieces_to_use:
+				x.set_ability(cooldown, "res://abilities_scripts/Peasants Unite Script.gd")
+				x.set_counter()
+
+# this function returns an array with the pieces the ability *might* be used on
+func collect_pieces_to_use_ability_on():
+	var pieces = []
+	for i in GRID.get_num_rows():
+		for j in GRID.get_num_colums():
+			if board[i][j] != null && board[i][j].piece_type == "pawn" &&  board[i][j].isWhite == turn_player.isWhite:
+				pieces.append(board[i][j])
+	return pieces
+
+static func activate(i, j):
+	var piece = board[i][j]
+	if piece.isWhite && board[i][j].is_in_grid(Vector2(i, j - 1)) && board[i][j - 1] == null:
+		board[i][j].position = GRID.grid_to_pixel(i, j - 1)
+		board[i][j] = null
+		board[i][j - 1] = piece
+	elif !piece.isWhite && board[7 - i][7 - j].is_in_grid(Vector2(7 - i, 7- j + 1)) && board[7 - i][7 - j + 1] == null:
+			board[7 - i][7 - j].position = GRID.grid_to_pixel(7- i, 7- j + 1)
+			board[7 - i][7 - j] = null
+			board[7 - i][7 - j + 1] = piece

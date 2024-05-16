@@ -29,8 +29,8 @@ func create_all_abilities():
 	create_settings_ability(all_icon_path, all_cooldown, all_cost, "All Abilities", all_description)
 	
 	var peasants_unite_icon_path = "res://abilities_assets/Peasants_Unite.png"
-	var peasants_unite_cooldown = "123"
-	var peasants_unite_cost = "35"
+	var peasants_unite_cooldown = "4"
+	var peasants_unite_cost = "2"
 	var peasants_unite_description = "All the pawns that can move forward, will move foreward one space."
 	create_settings_ability(peasants_unite_icon_path, peasants_unite_cooldown, peasants_unite_cost, "Peasants Unite", peasants_unite_description)
 	
