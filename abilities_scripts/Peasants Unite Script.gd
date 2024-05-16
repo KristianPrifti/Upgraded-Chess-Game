@@ -41,7 +41,9 @@ static func activate(i, j):
 		board[i][j].position = GRID.grid_to_pixel(i, j - 1)
 		board[i][j] = null
 		board[i][j - 1] = piece
-	elif !piece.isWhite && board[7 - i][7 - j].is_in_grid(Vector2(7 - i, 7- j + 1)) && board[7 - i][7 - j + 1] == null:
-			board[7 - i][7 - j].position = GRID.grid_to_pixel(7- i, 7- j + 1)
-			board[7 - i][7 - j] = null
-			board[7 - i][7 - j + 1] = piece
+	elif !piece.isWhite && board[i][j].is_in_grid(Vector2(i, j + 1)) && board[i][j + 1] == null:
+		board[i][j].position = GRID.grid_to_pixel(i, j + 1)
+		board[i][j] = null
+		board[i][j + 1] = piece
+
+

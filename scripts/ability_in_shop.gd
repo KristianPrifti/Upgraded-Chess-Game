@@ -9,11 +9,6 @@ var cost: int
 
 static var GRID
 
-#array that holds counters images
-var counter_paths = ["res://assets/counters assets/0counter.png", 
-"res://assets/counters assets/1counter.png", "res://assets/counters assets/2counter.png",
-"res://assets/counters assets/3counter.png", "res://assets/counters assets/4counter.png",
-"res://assets/counters assets/5counter.png"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -82,21 +77,3 @@ func can_be_used(arr: Array) -> Array:
 			
 	return pieces_to_use
 		
-
-func set_texture(arr: Array):
-	for x in arr:
-		var counter_to_use = turn - turn_to_activate
-		if counter_to_use < 0:
-			x.get_node("Sprite2D/counter_img").texture = null
-			x.ability_in_progress = false
-		else:
-			x.get_node("Sprite2D/counter_img").texture = ResourceLoader.load(counter_paths[counter_to_use])
-			x.ability_in_progress = true
-
-func update_texture():
-	var arr = []
-	for i in GRID.get_num_rows():
-		for j in GRID.get_num_colums():
-			if board[i][j] != null && board[i][j].is_chess_piece && board[i][j].ability_in_progress:
-				arr.append(board[i][j])
-	set_texture(arr)

@@ -9,8 +9,8 @@ extends Node2D
 # keeps track if an ability was used in this piece and it's waiting for the turn to be activated
 @export var ability_in_progress: bool
 # keeps track of what turn ability should be activated and what the ability is
-var activate_turn: int
-var ability_path: String
+@export var activate_turn: int
+@export var ability_path: String
 
 
 #array that holds counters images
