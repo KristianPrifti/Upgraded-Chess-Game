@@ -93,6 +93,8 @@ func _input(event: InputEvent) -> void:
 		
 # this function is for the promotion so the 4 lines below were not copy pasted a lot
 func complete_promotion(piece):
+	if board[promote_pawn_location.x][promote_pawn_location.y].ability_in_progress:
+		pieces_to_upgrade.erase(board[promote_pawn_location.x][promote_pawn_location.y])
 	board[promote_pawn_location.x][promote_pawn_location.y].queue_free()
 	add_to_board(piece)
 	promote_pawn = false
@@ -141,16 +143,19 @@ func get_wait_for_promotion():
 	return wait_for_promotion
 
 func update_abilities():
-	for piece in pieces_to_upgrade.size():
-		pieces_to_upgrade[piece].update_counter()
-		if pieces_to_upgrade[piece].get_activate_turn() == 0:
-			var piece_x = pieces_to_upgrade[piece].position.x
-			var piece_y = pieces_to_upgrade[piece].position.y
+	var pieces_to_erase = []
+	for piece in pieces_to_upgrade:
+		piece.update_counter()
+		if piece.get_activate_turn() == 0:
+			var piece_x = piece.position.x
+			var piece_y = piece.position.y
 			var piece_vector = pixel_to_grid(piece_x, piece_y)
-			load(pieces_to_upgrade[piece].get_ability_path()).activate(piece_vector.x, piece_vector.y)
-			pieces_to_upgrade.erase(piece)
-			pieces_to_upgrade[piece].erase_counter()
-			piece-=1
+			load(piece.get_ability_path()).activate(piece_vector.x, piece_vector.y)
+			pieces_to_erase.append(piece)
+	
+	for piece in pieces_to_erase:
+		piece.erase_counter()
+		pieces_to_upgrade.erase(piece)
 		
 
 # -------------------------------------------------------------------------------
@@ -216,6 +221,8 @@ func move_piece(column0, row0, column1, row1):
 			
 			if deleated_piece.is_chess_piece:
 				var deleated_isWhite = board[column1][row1].isWhite
+				if board[column1][row1].ability_in_progress:
+					pieces_to_upgrade.erase(board[column1][row1])
 				board[column1][row1].queue_free()
 				# if a king was deleated 
 				if deleated_type == "king":
