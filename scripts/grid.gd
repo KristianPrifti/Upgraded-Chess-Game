@@ -150,7 +150,8 @@ func update_abilities():
 			var piece_x = piece.position.x
 			var piece_y = piece.position.y
 			var piece_vector = pixel_to_grid(piece_x, piece_y)
-			load(piece.get_ability_path()).activate(piece_vector.x, piece_vector.y)
+			var tween = create_tween()
+			load(piece.get_ability_path()).activate(piece_vector.x, piece_vector.y, tween)
 			pieces_to_erase.append(piece)
 	
 	for piece in pieces_to_erase:
@@ -188,6 +189,8 @@ func click_input():
 			controlling_piece = board[grid_position.x][grid_position.y]
 			
 			var moves = controlling_piece.get_possible_moves(grid_position, board, turn_player.isWhite)
+			if moves.size() == 0:
+				return false
 			for i in moves:
 				add_active_symbol(i.x, i.y)
 			return true
@@ -201,12 +204,12 @@ func click_output():
 				var original_grid = pixel_to_grid(click1.x, click1.y)
 				move_piece(original_grid.x, original_grid.y, grid_position.x, grid_position.y)
 			
-			controlling = false
-			controlling_piece = null
-			# update the active_squares and hold_moves
-			get_node("../../").get_node("active_squares").remove_circles()
-			hold_moves.clear()
-			hold_moves = make_2d_array()
+		controlling = false
+		controlling_piece = null
+		# update the active_squares and hold_moves
+		get_node("../../").get_node("active_squares").remove_circles()
+		hold_moves.clear()
+		hold_moves = make_2d_array()
 
 func move_piece(column0, row0, column1, row1):
 	# this if statemnt checks if the player clicked twice in a row in the same spot
@@ -234,7 +237,10 @@ func move_piece(column0, row0, column1, row1):
 				board[column1][row1].queue_free()
 				collect_gem(3)
 				
-		board[column0][row0].position = grid_to_pixel(column1, row1)
+		#create tween for better looking movement
+		var tween = create_tween()
+		tween.tween_property(board[column0][row0], "position", grid_to_pixel(column1, row1), .3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		
 		board[column0][row0] = null
 		board[column1][row1] = piece
 		collect_gem_at_end_of_turn(1)

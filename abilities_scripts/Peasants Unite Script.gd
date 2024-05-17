@@ -36,15 +36,14 @@ func collect_pieces_to_use_ability_on():
 				pieces.append(board[i][j])
 	return pieces
 
-static func activate(i, j):
+static func activate(i, j, tween):
 	var piece = board[i][j]
 	if piece.isWhite && board[i][j].is_in_grid(Vector2(i, j - 1)) && board[i][j - 1] == null:
-		board[i][j].position = GRID.grid_to_pixel(i, j - 1)
+		tween.tween_property(board[i][j], "position", GRID.grid_to_pixel(i, j - 1), .3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 		board[i][j] = null
 		board[i][j - 1] = piece
 	elif !piece.isWhite && board[i][j].is_in_grid(Vector2(i, j + 1)) && board[i][j + 1] == null:
-		board[i][j].position = GRID.grid_to_pixel(i, j + 1)
+		tween.tween_property(board[i][j], "position", GRID.grid_to_pixel(i, j + 1), .3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 		board[i][j] = null
 		board[i][j + 1] = piece
-
 

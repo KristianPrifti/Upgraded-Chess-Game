@@ -300,16 +300,19 @@ script = ExtResource("5_oawt1")
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Abilities_queue_label" type="Label" parent="."]
-offset_left = 50.0
-offset_top = 100.0
-offset_right = 90.0
-offset_bottom = 123.0
+[node name="abilities_queue_label" type="Label" parent="."]
+offset_left = 1450.0
+offset_top = 150.0
+offset_right = 1850.0
+offset_bottom = 200.0
+text = "Abilities To Activate"
+horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Abilities_queue_label"]
+[node name="ScrollContainer" type="ScrollContainer" parent="abilities_queue_label"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_top = 50.0
+offset_right = 400.0
+offset_bottom = 850.0
 
-[node name="abilities_queue" type="VBoxContainer" parent="Abilities_queue_label/ScrollContainer"]
+[node name="abilities_queue" type="VBoxContainer" parent="abilities_queue_label/ScrollContainer"]
 layout_mode = 2
