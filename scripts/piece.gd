@@ -58,6 +58,10 @@ func update_counter():
 		self.get_node("Sprite2D/counter_img").texture = ResourceLoader.load(counter_paths[activate_turn])
 		ability_in_progress = true
 
+func erase_counter():
+	self.get_node("Sprite2D/counter_img").texture = null
+	ability_in_progress = false
+
 func get_activate_turn():
 	return activate_turn
 

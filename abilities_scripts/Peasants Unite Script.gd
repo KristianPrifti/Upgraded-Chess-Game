@@ -25,6 +25,7 @@ func use_ability():
 			for x in pieces_to_use:
 				x.set_ability(cooldown, "res://abilities_scripts/Peasants Unite Script.gd")
 				x.set_counter()
+			GRID.pieces_to_upgrade.append_array(pieces_to_use)
 
 # this function returns an array with the pieces the ability *might* be used on
 func collect_pieces_to_use_ability_on():

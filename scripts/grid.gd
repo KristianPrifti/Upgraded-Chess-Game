@@ -47,6 +47,9 @@ var promote_pawn_location: Vector2
 # this is so you wait for promotion
 var wait_for_promotion: bool = false
 
+#this varable keeps the pieces that have ability in progress
+var pieces_to_upgrade = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	board = make_2d_array()
@@ -138,13 +141,16 @@ func get_wait_for_promotion():
 	return wait_for_promotion
 
 func update_abilities():
-	for i in num_rows:
-		for j in num_colums:
-			var piece = board[i][j]
-			if piece != null && piece.is_chess_piece && piece.ability_in_progress:
-				piece.update_counter()
-				if piece.get_activate_turn() == 0:
-					load(piece.get_ability_path()).activate(i, j)
+	for piece in pieces_to_upgrade.size():
+		pieces_to_upgrade[piece].update_counter()
+		if pieces_to_upgrade[piece].get_activate_turn() == 0:
+			var piece_x = pieces_to_upgrade[piece].position.x
+			var piece_y = pieces_to_upgrade[piece].position.y
+			var piece_vector = pixel_to_grid(piece_x, piece_y)
+			load(pieces_to_upgrade[piece].get_ability_path()).activate(piece_vector.x, piece_vector.y)
+			pieces_to_upgrade.erase(piece)
+			pieces_to_upgrade[piece].erase_counter()
+			piece-=1
 		
 
 # -------------------------------------------------------------------------------
