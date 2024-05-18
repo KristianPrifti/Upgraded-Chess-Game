@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bec253yxf1oy3"]
+[gd_scene load_steps=7 format=3 uid="uid://bec253yxf1oy3"]
 
 [ext_resource type="Texture2D" uid="uid://cwucgof4krgiv" path="res://assets/Chess_Board.png" id="1_6rly3"]
 [ext_resource type="Script" path="res://scripts/grid.gd" id="2_4gq53"]
 [ext_resource type="PackedScene" uid="uid://psptmt5hck0t" path="res://player.tscn" id="3_armrn"]
 [ext_resource type="Script" path="res://scripts/active_squares.gd" id="4_8rch1"]
 [ext_resource type="Script" path="res://scripts/shop.gd" id="5_oawt1"]
+[ext_resource type="PackedScene" uid="uid://cmcjxij8bab28" path="res://activate_ability_window.tscn" id="6_iipnk"]
 
 [node name="game_menu" type="Node2D"]
 
@@ -301,18 +302,24 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="abilities_queue_label" type="Label" parent="."]
-offset_left = 1450.0
+offset_left = 1500.0
 offset_top = 150.0
-offset_right = 1850.0
+offset_right = 1800.0
 offset_bottom = 200.0
 text = "Abilities To Activate"
 horizontal_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="abilities_queue_label"]
+custom_minimum_size = Vector2(200, 800)
 layout_mode = 0
 offset_top = 50.0
-offset_right = 400.0
+offset_right = 300.0
 offset_bottom = 850.0
 
 [node name="abilities_queue" type="VBoxContainer" parent="abilities_queue_label/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="activate_ability_window" parent="abilities_queue_label/ScrollContainer/abilities_queue" instance=ExtResource("6_iipnk")]
+custom_minimum_size = Vector2(0, 180)
 layout_mode = 2

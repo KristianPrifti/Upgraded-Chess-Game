@@ -49,6 +49,7 @@ var wait_for_promotion: bool = false
 
 #this varable keeps the pieces that have ability in progress
 var pieces_to_upgrade = []
+var wait_for_ability_activation: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
