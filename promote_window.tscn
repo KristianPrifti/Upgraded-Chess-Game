@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://ed8tcwbjwtmn"]
+
+[ext_resource type="Texture2D" uid="uid://xlmc3a56rtqs" path="res://assets/promote_window.png" id="1_axenv"]
+[ext_resource type="Script" path="res://scripts/promote_window.gd" id="1_m3as1"]
+
+[node name="promote_window" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1470.0
+offset_bottom = -960.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m3as1")
+
+[node name="backround_window" type="Sprite2D" parent="."]
+position = Vector2(225, 60)
+texture = ExtResource("1_axenv")
+
+[node name="Button1" type="Button" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 110.0
+offset_bottom = 110.0
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 10.0
+offset_right = 220.0
+offset_bottom = 110.0
+
+[node name="Button3" type="Button" parent="."]
+layout_mode = 0
+offset_left = 230.0
+offset_top = 10.0
+offset_right = 330.0
+offset_bottom = 110.0
+
+[node name="Button4" type="Button" parent="."]
+layout_mode = 0
+offset_left = 340.0
+offset_top = 10.0
+offset_right = 440.0
+offset_bottom = 110.0

@@ -46,6 +46,7 @@ var promote_pawn_color: bool
 var promote_pawn_location: Vector2
 # keeps track of the pawns that need to be promoted
 var pawns_to_promote: Array = []
+var promote_window
 # this is so you wait for promotion
 var wait_for_promotion: bool = false
 
@@ -54,13 +55,14 @@ var abilities_queue
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	abilities_queue = get_node("../../abilities_queue_label/ScrollContainer/abilities_queue")
+	promote_window = get_node("../../promote_window")
 	board = make_2d_array()
 	hold_moves = make_2d_array()
 	spawn_initial_pices()
 	next_turn()
 	get_turn_player()
-	abilities_queue = get_node("../../abilities_queue_label/ScrollContainer/abilities_queue")
-
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -102,6 +104,7 @@ func complete_promotion(piece):
 	pawns_to_promote.remove_at(0)
 	board[promote_pawn_location.x][promote_pawn_location.y].queue_free()
 	add_to_board(piece)
+	promote_window.set_visible(false)
 	if pawns_to_promote.is_empty():
 		promote_pawn = false
 		wait_for_promotion = false
@@ -276,6 +279,7 @@ func get_pawn_to_promote():
 	var pawn = pawns_to_promote[0]
 	promote_pawn_color = pawn.isWhite
 	promote_pawn_location = pixel_to_grid(pawn.position.x, pawn.position.y)
+	promote_window.set_color(pawn.isWhite)
 	
 
 # check if there are any more kings of the deleated color 
@@ -375,6 +379,7 @@ func next_turn():
 	turn = turn + 1
 	turn_node.text = "Turn: " + str(turn)
 	gem_created_this_turn = false
+
 
 # get turn player
 func get_turn_player():
