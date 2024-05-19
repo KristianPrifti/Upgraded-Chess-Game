@@ -48,8 +48,7 @@ var promote_pawn_location: Vector2
 var wait_for_promotion: bool = false
 
 #this varable keeps the pieces that have ability in progress
-var pieces_to_upgrade = []
-var wait_for_ability_activation: bool = false
+var abilities_queue
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -58,6 +57,7 @@ func _ready():
 	spawn_initial_pices()
 	next_turn()
 	get_turn_player()
+	abilities_queue = get_node("../../abilities_queue_label/ScrollContainer/abilities_queue")
 
 
 
@@ -95,7 +95,7 @@ func _input(event: InputEvent) -> void:
 # this function is for the promotion so the 4 lines below were not copy pasted a lot
 func complete_promotion(piece):
 	if board[promote_pawn_location.x][promote_pawn_location.y].ability_in_progress:
-		pieces_to_upgrade.erase(board[promote_pawn_location.x][promote_pawn_location.y])
+		erase_piece(board[promote_pawn_location.x][promote_pawn_location.y])
 	board[promote_pawn_location.x][promote_pawn_location.y].queue_free()
 	add_to_board(piece)
 	promote_pawn = false
@@ -143,23 +143,27 @@ func get_turn():
 func get_wait_for_promotion():
 	return wait_for_promotion
 
-func update_abilities():
-	var pieces_to_erase = []
-	for piece in pieces_to_upgrade:
-		piece.update_counter()
-		if piece.get_activate_turn() == 0:
-			var piece_x = piece.position.x
-			var piece_y = piece.position.y
-			var piece_vector = pixel_to_grid(piece_x, piece_y)
-			var tween = create_tween()
-			load(piece.get_ability_path()).activate(piece_vector.x, piece_vector.y, tween)
-			pieces_to_erase.append(piece)
-	
-	for piece in pieces_to_erase:
-		piece.erase_counter()
-		pieces_to_upgrade.erase(piece)
-		
 
+
+func update_abilities():
+	var queue_count = abilities_queue.get_child_count()
+	#var queue
+	for i in queue_count:
+		var ability = abilities_queue.get_child(i)
+		ability.update_queue()
+		#queue.append(get_child(i))
+
+func check_if_abilities_are_activating() -> bool:
+	var queue_count = abilities_queue.get_child_count()
+	for i in queue_count:
+		if abilities_queue.get_child(i).ability_is_activating[0]:
+			return true
+	return false
+
+func erase_piece(piece):
+	var queue_count = abilities_queue.get_child_count()
+	for i in queue_count:
+		abilities_queue.get_child(i).erase_piece(piece)
 # -------------------------------------------------------------------------------
 # -------------------------------------------------------------------------------
 
@@ -182,7 +186,7 @@ func is_in_grid(x, y):
 	return false
 
 func click_input():
-	if Input.is_action_just_pressed("ui_click") && controlling == false && wait_for_promotion == false:
+	if Input.is_action_just_pressed("ui_click") && controlling == false && wait_for_promotion == false && !check_if_abilities_are_activating():
 		click1 = get_local_mouse_position()
 		var grid_position = pixel_to_grid(click1.x, click1.y)
 		if is_in_grid(grid_position.x, grid_position.y) && board[grid_position.x][grid_position.y] != null && \
@@ -226,7 +230,7 @@ func move_piece(column0, row0, column1, row1):
 			if deleated_piece.is_chess_piece:
 				var deleated_isWhite = board[column1][row1].isWhite
 				if board[column1][row1].ability_in_progress:
-					pieces_to_upgrade.erase(board[column1][row1])
+					erase_piece(board[column1][row1])
 				board[column1][row1].queue_free()
 				# if a king was deleated 
 				if deleated_type == "king":
@@ -248,16 +252,19 @@ func move_piece(column0, row0, column1, row1):
 		
 		# if the piece being moved is a pawn check if it needs to be promoted
 		if board[column1][row1].piece_type == "pawn":
-			if board[column1][row1].check_for_promotion(board[column1][row1].isWhite, row1):
-				promote_pawn = true
-				promote_pawn_color = board[column1][row1].isWhite
-				promote_pawn_location = Vector2(column1, row1)
-				wait_for_promotion = true;
+			start_promotion_if_necessary(column1, row1)
 		
 		next_turn()
 		get_turn_player()
 		add_gems()
 		update_abilities()
+
+func start_promotion_if_necessary(column1, row1):
+	if board[column1][row1].check_for_promotion(board[column1][row1].isWhite, row1):
+		promote_pawn = true
+		promote_pawn_color = board[column1][row1].isWhite
+		promote_pawn_location = Vector2(column1, row1)
+		wait_for_promotion = true;
 
 # check if there are any more kings of the deleated color 
 func kings_are_left(color):

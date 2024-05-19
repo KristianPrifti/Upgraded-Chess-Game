@@ -1,14 +1,19 @@
 extends Control
 
+# vars that are used to create abilities
 static var board: Array
 var turn_player
 var turn_to_activate: int
 var turn
 var cooldown: int
 var cost: int
+var ability_name: String
 
 static var GRID
 
+
+# vars that will be used to create activate_ability_window and to add them to the queue
+var activate_ability_window_path = preload("res://activate_ability_window.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,9 +27,10 @@ func _process(delta):
 
 
 # set up the instance variables for the child abilities
-func setup(cooldown, cost):
+func setup(cooldown, cost, ability_name):
 	self.cooldown = cooldown
 	self.cost = cost
+	self.ability_name = ability_name
 	update_vars()
 	
 
@@ -46,7 +52,7 @@ func create_ability(icon_texture, cooldown, cost, ability_name, ability_descript
 	# call the function on that ability's script
 	self.set_script(load("res://abilities_scripts/" + ability_name +" Script.gd"))
 	self._ready()
-	self.setup(cooldown, cost)
+	self.setup(cooldown, cost, ability_name)
 	
 
 # chack if the player has enough gems to buy the ability
@@ -77,3 +83,15 @@ func can_be_used(arr: Array) -> Array:
 			
 	return pieces_to_use
 		
+
+
+#---------------------------------------------------------------------------------------------------
+
+func create_activate_ability_window(name: String, owner: bool, ability, pieces: Array):
+	var window = activate_ability_window_path.instantiate()
+	get_node("../../../../abilities_queue_label/ScrollContainer/abilities_queue").add_child(window)
+	window.create_ability(name, owner, ability, pieces)
+	
+
+
+

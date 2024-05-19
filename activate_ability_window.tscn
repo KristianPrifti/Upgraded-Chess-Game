@@ -1,14 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmcjxij8bab28"]
+[gd_scene load_steps=3 format=3 uid="uid://cmcjxij8bab28"]
 
+[ext_resource type="Script" path="res://scripts/activate_ability_window.gd" id="1_5tbmv"]
 [ext_resource type="Texture2D" uid="uid://juo30i2xsx36" path="res://assets/activate_ability_window.png" id="1_58sjq"]
 
 [node name="activate_ability_window" type="Control"]
+custom_minimum_size = Vector2(300, 150)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -1620.0
+offset_bottom = -930.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_5tbmv")
 
 [node name="backround_window" type="Sprite2D" parent="."]
 position = Vector2(150, 75)
