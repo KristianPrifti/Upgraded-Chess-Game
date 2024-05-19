@@ -60,6 +60,7 @@ func update_counter():
 
 func erase_counter():
 	self.get_node("Sprite2D/counter_img").texture = null
+	self.get_node("Sprite2D/counter_img/what_ability_is_active").set_tooltip_text("")
 	ability_in_progress = false
 
 func get_activate_turn():

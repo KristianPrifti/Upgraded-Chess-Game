@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bec253yxf1oy3"]
+[gd_scene load_steps=8 format=3 uid="uid://bec253yxf1oy3"]
 
 [ext_resource type="Texture2D" uid="uid://cwucgof4krgiv" path="res://assets/Chess_Board.png" id="1_6rly3"]
 [ext_resource type="Script" path="res://scripts/grid.gd" id="2_4gq53"]
@@ -7,7 +7,15 @@
 [ext_resource type="Script" path="res://scripts/shop.gd" id="5_oawt1"]
 [ext_resource type="PackedScene" uid="uid://ed8tcwbjwtmn" path="res://promote_window.tscn" id="6_oft3i"]
 
+[sub_resource type="Environment" id="Environment_10sxf"]
+background_mode = 3
+glow_enabled = true
+glow_hdr_threshold = 1.41
+
 [node name="game_menu" type="Node2D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_10sxf")
 
 [node name="ChessBoard" type="Sprite2D" parent="."]
 position = Vector2(600, 140)
