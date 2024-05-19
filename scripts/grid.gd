@@ -44,6 +44,8 @@ var king_deleated_isWhite
 var promote_pawn: bool = false
 var promote_pawn_color: bool
 var promote_pawn_location: Vector2
+# keeps track of the pawns that need to be promoted
+var pawns_to_promote: Array = []
 # this is so you wait for promotion
 var wait_for_promotion: bool = false
 
@@ -78,6 +80,7 @@ func _process(delta):
 func _input(event: InputEvent) -> void:
 	# promote pawn if you have to
 	if promote_pawn:
+		get_pawn_to_promote()
 		var piece
 		if Input.is_action_just_pressed("ui_r"):
 			piece = spawn_initial(pieces_list[0], promote_pawn_color, promote_pawn_location.x, promote_pawn_location.y)
@@ -96,10 +99,13 @@ func _input(event: InputEvent) -> void:
 func complete_promotion(piece):
 	if board[promote_pawn_location.x][promote_pawn_location.y].ability_in_progress:
 		erase_piece(board[promote_pawn_location.x][promote_pawn_location.y])
+	pawns_to_promote.remove_at(0)
 	board[promote_pawn_location.x][promote_pawn_location.y].queue_free()
 	add_to_board(piece)
-	promote_pawn = false
-	wait_for_promotion = false
+	if pawns_to_promote.is_empty():
+		promote_pawn = false
+		wait_for_promotion = false
+
 
 # makes the array into a 2D array
 func make_2d_array():
@@ -262,9 +268,15 @@ func move_piece(column0, row0, column1, row1):
 func start_promotion_if_necessary(column1, row1):
 	if board[column1][row1].check_for_promotion(board[column1][row1].isWhite, row1):
 		promote_pawn = true
-		promote_pawn_color = board[column1][row1].isWhite
-		promote_pawn_location = Vector2(column1, row1)
+		pawns_to_promote.append(board[column1][row1])
 		wait_for_promotion = true;
+
+# updates the necessary values to promote the first pawn in the array pawns_to_promote
+func get_pawn_to_promote():
+	var pawn = pawns_to_promote[0]
+	promote_pawn_color = pawn.isWhite
+	promote_pawn_location = pixel_to_grid(pawn.position.x, pawn.position.y)
+	
 
 # check if there are any more kings of the deleated color 
 func kings_are_left(color):
