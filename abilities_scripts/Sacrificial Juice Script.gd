@@ -8,7 +8,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	turn_player = get_node("../../../%grid").get_turn_player()
+	pass
 
 
 func use_ability():

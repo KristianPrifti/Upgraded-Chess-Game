@@ -48,10 +48,8 @@ func erase_piece(piece):
 func glow():
 	for x in affected_pieces:
 		x.set_modulate(Color(1, 0.6, 1, 1))
-		#x.set_self_modulate(Color(1.5, 0.6, 1.5, 1))
 	
 
 func end_glow():
 	for x in affected_pieces:
 		x.set_modulate(Color(1, 1, 1, 1))
-		#x.set_self_modulate(Color(1, 1, 1, 1))

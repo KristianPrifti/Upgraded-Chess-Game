@@ -1,7 +1,7 @@
 extends Control
 
 # vars that are used to create abilities
-static var board: Array
+var board: Array
 var turn_player
 var turn_to_activate: int
 var turn
@@ -9,8 +9,11 @@ var cooldown: int
 var cost: int
 var ability_name: String
 
-static var GRID
+var GRID
 
+# var used to show possible moves for abilities if necessary
+var active_symbol_ability_path = preload("res://active_symbol_ability.tscn")
+var hold_ability_positions
 
 # vars that will be used to create activate_ability_window and to add them to the queue
 var activate_ability_window_path = preload("res://activate_ability_window.tscn")
@@ -40,6 +43,7 @@ func update_vars():
 	board = GRID.get_board()
 	turn_player = GRID.get_turn_player()
 	turn = GRID.get_turn()
+	hold_ability_positions = GRID.make_2d_array()
 
 
 func create_ability(icon_texture, cooldown, cost, ability_name, ability_description):
@@ -54,6 +58,19 @@ func create_ability(icon_texture, cooldown, cost, ability_name, ability_descript
 	self._ready()
 	self.setup(cooldown, cost, ability_name)
 	
+#---------------------------------------------------------------------------------------------------
+
+func add_active_symbol_ability(x, y):
+	var symbol = active_symbol_ability_path.instantiate()
+	get_node("../../../../").get_node("active_squares").add_child(symbol)
+	symbol.position = GRID.grid_to_pixel(x, y)
+	hold_ability_positions[x][y] = symbol
+
+func reset_at_end_of_activation():
+	get_node("../../../../").get_node("active_squares").remove_circles()
+	hold_ability_positions.clear()
+	hold_ability_positions = GRID.make_2d_array()
+#---------------------------------------------------------------------------------------------------
 
 # chack if the player has enough gems to buy the ability
 func has_enough_gems() -> bool:
@@ -84,8 +101,6 @@ func can_be_used(arr: Array) -> Array:
 	return pieces_to_use
 		
 
-
-#---------------------------------------------------------------------------------------------------
 
 func create_activate_ability_window(name: String, owner: bool, ability, pieces: Array):
 	var window = activate_ability_window_path.instantiate()

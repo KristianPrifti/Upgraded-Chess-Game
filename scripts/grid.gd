@@ -50,8 +50,11 @@ var promote_window
 # this is so you wait for promotion
 var wait_for_promotion: bool = false
 
-#this varable keeps the pieces that have ability in progress
+# this varable keeps the pieces that have ability in progress
 var abilities_queue
+# keeps track if an ability is going to be set up, so the game doesn't contine before thast finishes
+# this is a singleton array
+var ability_is_doing_something = [false]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -153,14 +156,11 @@ func get_wait_for_promotion():
 	return wait_for_promotion
 
 
-
 func update_abilities():
 	var queue_count = abilities_queue.get_child_count()
-	#var queue
 	for i in queue_count:
 		var ability = abilities_queue.get_child(i)
 		ability.update_queue()
-		#queue.append(get_child(i))
 
 func check_if_abilities_are_activating() -> bool:
 	var queue_count = abilities_queue.get_child_count()
@@ -169,6 +169,7 @@ func check_if_abilities_are_activating() -> bool:
 			return true
 	return false
 
+# erase piece from the queue if it is deleated from the board
 func erase_piece(piece):
 	var queue_count = abilities_queue.get_child_count()
 	for i in queue_count:
@@ -195,7 +196,7 @@ func is_in_grid(x, y):
 	return false
 
 func click_input():
-	if Input.is_action_just_pressed("ui_click") && controlling == false && wait_for_promotion == false && !check_if_abilities_are_activating():
+	if Input.is_action_just_pressed("ui_click") && controlling == false && wait_for_promotion == false && !check_if_abilities_are_activating() && !(ability_is_doing_something[0]):
 		click1 = get_local_mouse_position()
 		var grid_position = pixel_to_grid(click1.x, click1.y)
 		if is_in_grid(grid_position.x, grid_position.y) && board[grid_position.x][grid_position.y] != null && \
