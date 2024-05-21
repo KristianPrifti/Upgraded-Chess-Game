@@ -63,6 +63,18 @@ func activate(the_arr):
 			add_active_symbol_ability(i - 1, j)
 		if GRID.is_in_grid(i + 1, j) && board[i + 1][j] == null:
 			add_active_symbol_ability(i + 1, j)
+			
+		# if there isn't any place to move the bishop do nothing
+		for u in hold_ability_positions:
+			for v in u:
+				if v != null:
+					return
+			
+		reset_at_end_of_activation()
+		activation_in_progress = false
+		GRID.ability_is_doing_something[0] = false
+			
+		queue.activation_finished[0] = true
 		
 
 

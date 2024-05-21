@@ -61,7 +61,9 @@ func activate(the_arr):
 				board[i][j] = null
 				board[i][j + 1] = piece
 				GRID.start_promotion_if_necessary(i, j + 1)
-				
+			
+			GRID.ability_is_doing_something[0] = false
+			queue.activation_finished[0] = true
 #				queue.activation_finished[0] = true
 #				queue.activation_started[0] = false
 #				queue.activation_finished[0] = false

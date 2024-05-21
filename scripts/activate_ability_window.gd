@@ -51,7 +51,9 @@ func update_queue():
 	var pieces_to_erase = []
 	for piece in affected_pieces:
 		piece.update_counter()
-	if affected_pieces[0].get_activate_turn() == 0:
+	if affected_pieces.size() == 0:
+		self.queue_free()
+	elif affected_pieces[0].get_activate_turn() == 0:
 		ability_is_activating[0] = true
 		self.set_visible(true)
 #		if !(queue.activation_started[0]):

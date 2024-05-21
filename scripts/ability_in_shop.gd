@@ -93,7 +93,7 @@ func has_enough_gems() -> bool:
 # this function takes an array of pieces in case an ability affects mulpiple pieces
 func can_be_used(arr: Array) -> Array:
 	var pieces_to_use = []
-	if (GRID.get_wait_for_promotion()):
+	if GRID.get_wait_for_promotion() || check_if_any_visibel_in_queue():
 		return pieces_to_use
 	
 	for x in arr:
@@ -102,6 +102,13 @@ func can_be_used(arr: Array) -> Array:
 			
 	return pieces_to_use
 		
+
+func check_if_any_visibel_in_queue():
+	var q = queue.get_child_count()
+	for z in q:
+		if queue.get_child(z).visible:
+			return true
+	return false
 
 
 func create_activate_ability_window(name: String, owner: bool, ability, pieces: Array):
