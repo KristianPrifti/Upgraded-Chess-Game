@@ -17,6 +17,7 @@ var hold_ability_positions
 
 # vars that will be used to create activate_ability_window and to add them to the queue
 var activate_ability_window_path = preload("res://activate_ability_window.tscn")
+var queue
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,6 +35,7 @@ func setup(cooldown, cost, ability_name):
 	self.cooldown = cooldown
 	self.cost = cost
 	self.ability_name = ability_name
+	self.queue = get_node("../../../../abilities_queue_label/ScrollContainer/abilities_queue")
 	update_vars()
 	
 

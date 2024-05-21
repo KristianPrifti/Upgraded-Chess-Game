@@ -35,8 +35,8 @@ func create_all_abilities():
 	create_settings_ability(peasants_unite_icon_path, peasants_unite_cooldown, peasants_unite_cost, "Peasants Unite", peasants_unite_description)
 	
 	var color_switch_icon_path = "res://abilities_assets/Color_Switch.png"
-	var color_switch_cooldown = "1"
-	var color_switch_cost = "3"
+	var color_switch_cooldown = "2"
+	var color_switch_cost = "1"
 	var color_switch_description = "Bishop can move to an ajecent space with a different color from the currrent space."
 	create_settings_ability(color_switch_icon_path, color_switch_cooldown, color_switch_cost, "Color Switch", color_switch_description)
 	

@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bec253yxf1oy3"]
+[gd_scene load_steps=9 format=3 uid="uid://bec253yxf1oy3"]
 
 [ext_resource type="Texture2D" uid="uid://cwucgof4krgiv" path="res://assets/Chess_Board.png" id="1_6rly3"]
 [ext_resource type="Script" path="res://scripts/grid.gd" id="2_4gq53"]
 [ext_resource type="PackedScene" uid="uid://psptmt5hck0t" path="res://player.tscn" id="3_armrn"]
 [ext_resource type="Script" path="res://scripts/active_squares.gd" id="4_8rch1"]
 [ext_resource type="Script" path="res://scripts/shop.gd" id="5_oawt1"]
+[ext_resource type="Script" path="res://scripts/abilities_queue.gd" id="6_la2tx"]
 [ext_resource type="PackedScene" uid="uid://ed8tcwbjwtmn" path="res://promote_window.tscn" id="6_oft3i"]
 
 [sub_resource type="Environment" id="Environment_10sxf"]
@@ -327,6 +328,7 @@ offset_bottom = 850.0
 [node name="abilities_queue" type="VBoxContainer" parent="abilities_queue_label/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("6_la2tx")
 
 [node name="promote_window" parent="." instance=ExtResource("6_oft3i")]
 offset_left = 775.0
