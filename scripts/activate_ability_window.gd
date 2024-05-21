@@ -16,21 +16,21 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
 	if queue.activation_tracker == tracker && queue.activation_finished[0]:
 		queue.activation_finished[0] = false
 		queue.activation_started[0] = false
-		self.queue_free()
 		for piece in affected_pieces:
 			piece.erase_counter()
-
+		self.queue_free()
+	
 	if !this_activation_started:
-		await $use.pressed
+		await $use.button_down
 		if !(queue.activation_started[0]):
 			queue.activation_started[0] = true
 			this_activation_started = true
 			queue.activation_tracker = tracker
 			$use.emit_signal("pressed")
-	
 
 
 func create_ability(name, owner, ability, pieces):
