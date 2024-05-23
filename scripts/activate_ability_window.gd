@@ -56,11 +56,6 @@ func update_queue():
 	elif affected_pieces[0].get_activate_turn() == 0:
 		ability_is_activating[0] = true
 		self.set_visible(true)
-#		if !(queue.activation_started[0]):
-#			await $use.pressed
-#			self.queue_free()
-#			for piece in affected_pieces:
-#				piece.erase_counter()
 	
 
 func erase_piece(piece):

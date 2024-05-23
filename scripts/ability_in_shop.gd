@@ -112,10 +112,45 @@ func check_if_any_visibel_in_queue():
 
 
 func create_activate_ability_window(name: String, owner: bool, ability, pieces: Array):
+	GRID.collect_gem(-cost)
+	for x in pieces:
+		x.set_ability(cooldown)
+		x.set_counter()
 	var window = activate_ability_window_path.instantiate()
 	get_node("../../../../abilities_queue_label/ScrollContainer/abilities_queue").add_child(window)
 	window.create_ability(name, owner, ability, pieces)
 	
 
 
+# to make the abilities creatin look cleaner in abilities files
 
+# function to be called at the beggining of every use_ability() method
+func can_buy_ability() -> bool:
+	if !(GRID.ability_is_doing_something[0]):
+		update_vars()
+	
+		GRID.ability_in_use()
+	
+		if has_enough_gems():
+			GRID.ability_is_doing_something[0] = true
+			return true
+			
+	return false
+
+# function to be called at the end of buying the ability part of the code
+func end_of_buy_ability():
+	GRID.ability_is_doing_something[0] = false
+
+# function that should be called at activate() method
+# checks if the ability can be activated
+func can_activate(tracker) -> bool:
+	if tracker == queue.activation_tracker:
+		GRID.ability_is_doing_something[0] = true
+		return true
+	return false
+
+# call this function at the end of the activation of the ability
+func end_of_activation():
+	reset_at_end_of_activation()
+	GRID.ability_is_doing_something[0] = false
+	queue.activation_finished[0] = true

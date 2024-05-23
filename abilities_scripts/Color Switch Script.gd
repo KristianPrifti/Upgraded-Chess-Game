@@ -6,28 +6,31 @@ var bishop_affected
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$cost.pressed.connect(use_ability)
+	$cost.pressed.connect(buy_ability)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if being_set_up:
-		collect_pieces_to_use_ability_on()
+		finish_buy_ability()
 	if activation_in_progress:
 		finish_activation()
 
 
-func use_ability():
-	if !(activation_in_progress):
-		update_vars()
-	
-		GRID.ability_in_use()
-	
-		if has_enough_gems():
-			being_set_up = true;
-			GRID.ability_is_doing_something[0] = true
+func buy_ability():
+	##if !(activation_in_progress):
+#	if !(GRID.ability_is_doing_something[0]):
+#		update_vars()
+#
+#		GRID.ability_in_use()
+#
+#		if has_enough_gems():
+#			being_set_up = true
+#			GRID.ability_is_doing_something[0] = true
+	if can_buy_ability():
+		being_set_up = true
 
-func collect_pieces_to_use_ability_on():
+func finish_buy_ability():
 	if Input.is_action_just_pressed("ui_click"):
 		var click = GRID.get_local_mouse_position()
 		var grid_position = GRID.pixel_to_grid(click.x, click.y)
@@ -35,21 +38,25 @@ func collect_pieces_to_use_ability_on():
 		board[grid_position.x][grid_position.y].piece_type == "bishop" && board[grid_position.x][grid_position.y].isWhite == turn_player.isWhite:
 			var pieces_to_use = can_be_used([board[grid_position.x][grid_position.y]])
 			if pieces_to_use.size() != 0:
-				GRID.collect_gem(-cost)
 				var player_color = pieces_to_use[0].isWhite
-				for x in pieces_to_use:
-					x.set_ability(cooldown, "res://abilities_scripts/Color Switch Script.gd")
-					x.set_counter()
 				create_activate_ability_window(ability_name, player_color, activate, pieces_to_use)
+#				GRID.collect_gem(-cost)
+#				var player_color = pieces_to_use[0].isWhite
+#				for x in pieces_to_use:
+#					x.set_ability(cooldown)
+#					x.set_counter()
+#				create_activate_ability_window(ability_name, player_color, activate, pieces_to_use)
 		being_set_up = false
-		GRID.ability_is_doing_something[0] = false
+#		GRID.ability_is_doing_something[0] = false
+		end_of_buy_ability()
 
 func activate(the_arr):
-	var tracker = the_arr[0]
+	#var tracker = the_arr[0]
 	var arr = the_arr[1]
-	if tracker == queue.activation_tracker:
+	#if tracker == queue.activation_tracker:
+	if can_activate(the_arr[0]):
 		activation_in_progress = true
-		GRID.ability_is_doing_something[0] = true
+		#GRID.ability_is_doing_something[0] = true
 		bishop_affected = arr[0]
 		var z_vec = GRID.pixel_to_grid(bishop_affected.position.x, bishop_affected.position.y)
 		var i = z_vec.x
@@ -70,11 +77,12 @@ func activate(the_arr):
 				if v != null:
 					return
 			
-		reset_at_end_of_activation()
+#		reset_at_end_of_activation()
 		activation_in_progress = false
-		GRID.ability_is_doing_something[0] = false
-			
-		queue.activation_finished[0] = true
+#		GRID.ability_is_doing_something[0] = false
+#
+#		queue.activation_finished[0] = true
+		end_of_activation()
 		
 
 
@@ -91,8 +99,9 @@ func finish_activation():
 			board[z_vec.x][z_vec.y] = null
 			board[i][j] = bishop_affected
 			
-			reset_at_end_of_activation()
+#			reset_at_end_of_activation()
 			activation_in_progress = false
-			GRID.ability_is_doing_something[0] = false
-			
-			queue.activation_finished[0] = true
+#			GRID.ability_is_doing_something[0] = false
+#
+#			queue.activation_finished[0] = true
+			end_of_activation()

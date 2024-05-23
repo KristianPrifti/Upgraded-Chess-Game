@@ -10,7 +10,7 @@ extends Node2D
 @export var ability_in_progress: bool
 # keeps track of what turn ability should be activated and what the ability is
 @export var activate_turn: int
-@export var ability_path: String
+#@export var ability_path: String
 
 
 #array that holds counters images
@@ -66,11 +66,15 @@ func erase_counter():
 func get_activate_turn():
 	return activate_turn
 
-func get_ability_path():
-	return ability_path
+#func get_ability_path():
+#	return ability_path
+#
+#func set_ability(cooldown, ability_path):
+#	ability_in_progress = true
+#	activate_turn = cooldown
+#	self.ability_path = ability_path
+	
 
-func set_ability(cooldown, ability_path):
+func set_ability(cooldown):
 	ability_in_progress = true
 	activate_turn = cooldown
-	self.ability_path = ability_path
-	

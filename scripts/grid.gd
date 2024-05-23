@@ -45,7 +45,7 @@ var promote_pawn: bool = false
 var promote_pawn_color: bool
 var promote_pawn_location: Vector2
 # keeps track of the pawns that need to be promoted
-var pawns_to_promote: Array = []
+@export var pawns_to_promote: Array = []
 var promote_window
 # this is so you wait for promotion
 var wait_for_promotion: bool = false
@@ -419,6 +419,15 @@ func collect_gem(gems):
 		white_gems += gems
 		$white_gems.text = "Gems: " + str(white_gems)
 	if turn_player.isWhite == false:
+		black_gems += gems
+		$black_gems.text = "Gems: " + str(black_gems)
+
+# collects gems for a specific player
+func player_collect_gems(gems, isWhite):
+	if isWhite:
+		white_gems += gems
+		$white_gems.text = "Gems: " + str(white_gems)
+	else:
 		black_gems += gems
 		$black_gems.text = "Gems: " + str(black_gems)
 

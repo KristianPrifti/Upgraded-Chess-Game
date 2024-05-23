@@ -7,3 +7,4 @@
 script = ExtResource("2_o8m8t")
 piece_type = "qween"
 is_chess_piece = true
+ability_path = null
