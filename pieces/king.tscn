@@ -7,4 +7,3 @@
 script = ExtResource("2_xoxt6")
 piece_type = "king"
 is_chess_piece = true
-ability_path = null

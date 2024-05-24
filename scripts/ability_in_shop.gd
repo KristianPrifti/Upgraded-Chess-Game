@@ -121,10 +121,11 @@ func create_activate_ability_window(name: String, owner: bool, ability, pieces: 
 	window.create_ability(name, owner, ability, pieces)
 	
 
-
+#---------------------------------------------------------------------------------------------------
 # to make the abilities creatin look cleaner in abilities files
 
 # function to be called at the beggining of every use_ability() method
+# returns true if the player can buy the specific ability at that moment
 func can_buy_ability() -> bool:
 	if !(GRID.ability_is_doing_something[0]):
 		update_vars()
@@ -138,6 +139,7 @@ func can_buy_ability() -> bool:
 	return false
 
 # function to be called at the end of buying the ability part of the code
+# resets the necessary variabels
 func end_of_buy_ability():
 	GRID.ability_is_doing_something[0] = false
 
@@ -150,6 +152,7 @@ func can_activate(tracker) -> bool:
 	return false
 
 # call this function at the end of the activation of the ability
+# resets the necessary variabels
 func end_of_activation():
 	reset_at_end_of_activation()
 	GRID.ability_is_doing_something[0] = false

@@ -15,7 +15,6 @@ func _process(delta):
 		finish_buy_ability()
 
 
-
 func buy_ability():
 	if can_buy_ability():
 		being_set_up = true
@@ -50,9 +49,20 @@ func activate(the_arr):
 			gems_to_gain = 3
 		elif piece_to_sacrifice.piece_type == "pawn":
 			gems_to_gain = 1
+		elif piece_to_sacrifice.piece_type == "king":
+			gems_to_gain = 10
 		
 		GRID.player_collect_gems(gems_to_gain, piece_to_sacrifice.isWhite)
 		arr.erase(piece_to_sacrifice)
+		
+		var vec = GRID.pixel_to_grid(piece_to_sacrifice.position.x, piece_to_sacrifice.position.y)
+		board[vec.x][vec.y] = null
 		piece_to_sacrifice.queue_free()
 		
+		#check if there are kings left to continue the game
+		var piece_to_sacrifice_isWhite = piece_to_sacrifice.isWhite
+		if GRID.kings_are_left(piece_to_sacrifice_isWhite) == false:
+			GRID.switch_to_end_scene(piece_to_sacrifice_isWhite)
+			
 	end_of_activation()
+

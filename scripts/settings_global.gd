@@ -49,7 +49,7 @@ func create_all_abilities():
 	var sacrificial_juice_icon_path = "res://abilities_assets/Sacrificial_Juice.png"
 	var sacrificial_juice_cooldown = "3"
 	var sacrificial_juice_cost = "5"
-	var sacrificial_juice_description = "Pick one of your pieces. That piece piece is destroyed and you get gems equal to that piece's value. (pawn = 1, knight/bishop = 3, rook = 5, qween = 9)"
+	var sacrificial_juice_description = "Pick one of your pieces. That piece piece is destroyed and you get gems equal to that piece's value. (pawn = 1, knight/bishop = 3, rook = 5, qween = 9, king = 10)"
 	create_settings_ability(sacrificial_juice_icon_path, sacrificial_juice_cooldown, sacrificial_juice_cost, "Sacrificial Juice", sacrificial_juice_description)
 	
 	
