@@ -18,15 +18,6 @@ func _process(delta):
 
 
 func buy_ability():
-	##if !(activation_in_progress):
-#	if !(GRID.ability_is_doing_something[0]):
-#		update_vars()
-#
-#		GRID.ability_in_use()
-#
-#		if has_enough_gems():
-#			being_set_up = true
-#			GRID.ability_is_doing_something[0] = true
 	if can_buy_ability():
 		being_set_up = true
 
@@ -40,23 +31,14 @@ func finish_buy_ability():
 			if pieces_to_use.size() != 0:
 				var player_color = pieces_to_use[0].isWhite
 				create_activate_ability_window(ability_name, player_color, activate, pieces_to_use)
-#				GRID.collect_gem(-cost)
-#				var player_color = pieces_to_use[0].isWhite
-#				for x in pieces_to_use:
-#					x.set_ability(cooldown)
-#					x.set_counter()
-#				create_activate_ability_window(ability_name, player_color, activate, pieces_to_use)
+
 		being_set_up = false
-#		GRID.ability_is_doing_something[0] = false
 		end_of_buy_ability()
 
 func activate(the_arr):
-	#var tracker = the_arr[0]
 	var arr = the_arr[1]
-	#if tracker == queue.activation_tracker:
 	if can_activate(the_arr[0]):
 		activation_in_progress = true
-		#GRID.ability_is_doing_something[0] = true
 		bishop_affected = arr[0]
 		var z_vec = GRID.pixel_to_grid(bishop_affected.position.x, bishop_affected.position.y)
 		var i = z_vec.x
@@ -71,17 +53,14 @@ func activate(the_arr):
 		if GRID.is_in_grid(i + 1, j) && board[i + 1][j] == null:
 			add_active_symbol_ability(i + 1, j)
 			
-		# if there isn't any place to move the bishop do nothing
+		# check if there is a place to move the bishop
 		for u in hold_ability_positions:
 			for v in u:
 				if v != null:
 					return
 			
-#		reset_at_end_of_activation()
+		# resent the values if the isn't any place to move the bishop
 		activation_in_progress = false
-#		GRID.ability_is_doing_something[0] = false
-#
-#		queue.activation_finished[0] = true
 		end_of_activation()
 		
 
@@ -99,9 +78,5 @@ func finish_activation():
 			board[z_vec.x][z_vec.y] = null
 			board[i][j] = bishop_affected
 			
-#			reset_at_end_of_activation()
 			activation_in_progress = false
-#			GRID.ability_is_doing_something[0] = false
-#
-#			queue.activation_finished[0] = true
 			end_of_activation()

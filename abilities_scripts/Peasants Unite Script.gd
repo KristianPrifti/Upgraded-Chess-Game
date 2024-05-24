@@ -13,21 +13,13 @@ func _process(delta):
 
 
 func buy_ability():
-#	update_vars()
-#	if !(GRID.ability_is_doing_something[0]):
-#		GRID.ability_in_use()
-#
-#		if has_enough_gems():
+
 		if can_buy_ability():
 		
 			var pieces = collect_pieces_to_use_ability_on()
 			var pieces_to_use = can_be_used(pieces)
 			if pieces_to_use.size() != 0:
-#				GRID.collect_gem(-cost)
 				var player_color = pieces_to_use[0].isWhite
-#				for x in pieces_to_use:
-#					x.set_ability(cooldown)
-#					x.set_counter()
 				create_activate_ability_window(ability_name, player_color, activate, pieces_to_use)
 			end_of_buy_ability()
 
@@ -42,9 +34,7 @@ func collect_pieces_to_use_ability_on():
 
 
 func activate(the_arr):
-#	var tracker = the_arr[0]
 	var arr = the_arr[1]
-#	if tracker == queue.activation_tracker:
 	if can_activate(the_arr[0]):
 		for z in arr:
 			var z_vec = GRID.pixel_to_grid(z.position.x, z.position.y)
@@ -66,8 +56,3 @@ func activate(the_arr):
 				GRID.start_promotion_if_necessary(i, j + 1)
 			
 		end_of_activation()
-#			GRID.ability_is_doing_something[0] = false
-#			queue.activation_finished[0] = true
-#				queue.activation_finished[0] = true
-#				queue.activation_started[0] = false
-#				queue.activation_finished[0] = false
