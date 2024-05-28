@@ -31,7 +31,9 @@ var controlling_piece
 # player and turn counter
 var turn_player: Node2D
 @onready var turn_node = $turn
-var turn: int = 0
+@export var turn: int = 0
+@export var p: PackedScene
+
 # gem path and var to keep track if gem was created this turn
 var chess_gem_path = preload("res://chess_gem.tscn")
 var gem_created_this_turn : bool
@@ -56,8 +58,10 @@ var abilities_queue
 # this is a singleton array
 var ability_is_doing_something = [false]
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	spawn_players()
 	abilities_queue = get_node("../../abilities_queue_label/ScrollContainer/abilities_queue")
 	promote_window = get_node("../../promote_window")
 	board = make_2d_array()
@@ -66,6 +70,7 @@ func _ready():
 	next_turn()
 	get_turn_player()
 	
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -80,6 +85,7 @@ func _process(delta):
 			switch_to_end_scene(king_deleated_isWhite)
 			king_deleated = false
 	
+
 
 
 func _input(event: InputEvent) -> void:
@@ -268,6 +274,7 @@ func move_piece(column0, row0, column1, row1):
 		get_turn_player()
 		add_gems()
 		update_abilities()
+		
 
 func start_promotion_if_necessary(column1, row1):
 	if board[column1][row1].check_for_promotion(board[column1][row1].isWhite, row1):
@@ -380,6 +387,19 @@ func next_turn():
 	turn = turn + 1
 	turn_node.text = "Turn: " + str(turn)
 	gem_created_this_turn = false
+
+
+# spawn the players at the beggining of the game
+func spawn_players():
+	var white_player = p.instantiate()
+	add_child(white_player)
+	white_player.set_name("white_player")
+	white_player.isWhite = true
+	
+	var black_player = p.instantiate()
+	add_child(black_player)
+	black_player.set_name("black_player")
+	black_player.isWhite = false
 
 
 # get turn player

@@ -260,11 +260,7 @@ layout_mode = 2
 [node name="grid" type="Node2D" parent="ChessBoard"]
 unique_name_in_owner = true
 script = ExtResource("2_4gq53")
-
-[node name="white_player" parent="ChessBoard/grid" instance=ExtResource("3_armrn")]
-isWhite = true
-
-[node name="black_player" parent="ChessBoard/grid" instance=ExtResource("3_armrn")]
+p = ExtResource("3_armrn")
 
 [node name="turn" type="Label" parent="ChessBoard/grid"]
 offset_left = 950.0

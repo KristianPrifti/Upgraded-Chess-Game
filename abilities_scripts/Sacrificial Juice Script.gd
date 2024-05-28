@@ -1,7 +1,6 @@
 extends "res://scripts/ability_in_shop.gd"
 
 var being_set_up: bool
-var activation_in_progress: bool
 
 
 # Called when the node enters the scene tree for the first time.
@@ -35,7 +34,6 @@ func finish_buy_ability():
 
 func activate(the_arr):
 	var arr = the_arr[1]
-	#if tracker == queue.activation_tracker:
 	if can_activate(the_arr[0]):
 		var piece_to_sacrifice = arr[0]
 		var gems_to_gain = 0
