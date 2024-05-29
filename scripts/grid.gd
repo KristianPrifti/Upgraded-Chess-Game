@@ -240,6 +240,7 @@ func move_piece(column0, row0, column1, row1):
 			return
 			
 		var piece = board[column0][row0]
+		var code = 0
 		if board[column1][row1] != null:
 			var deleated_piece = board[column1][row1]
 			var deleated_type = board[column1][row1].piece_type
@@ -256,7 +257,7 @@ func move_piece(column0, row0, column1, row1):
 			
 			# add gems to player's gem amount if a gem was captured
 			elif !deleated_piece.is_chess_piece:
-				interact_with_item(column1, row1)
+				code = interact_with_item(column1, row1)
 				
 		#create tween for better looking movement
 		var tween = create_tween()
@@ -269,6 +270,13 @@ func move_piece(column0, row0, column1, row1):
 		# if the piece being moved is a pawn check if it needs to be promoted
 		if board[column1][row1].piece_type == "pawn":
 			start_promotion_if_necessary(column1, row1)
+		
+		if code == 1:
+			if piece.piece_type == "king":
+				king_deleated = true
+				king_deleated_isWhite = piece.isWhite
+				piece.queue_free()
+				board[column1][row1] = null
 		
 		next_turn()
 		get_turn_player()
@@ -457,9 +465,14 @@ func collect_gem_at_end_of_turn(gems):
 	black_gems += gems
 	$black_gems.text = "Gems: " + str(black_gems)
 
-func interact_with_item(x, y):
+func interact_with_item(x, y) -> int:
 	if board[x][y].piece_type == "gem":
 		board[x][y].queue_free()
 		collect_gem(gem_value)
 	elif board[x][y].piece_type == "wall":
 		board[x][y].queue_free()
+	elif board[x][y].piece_type == "trap":
+		board[x][y].queue_free()
+		return 1
+	
+	return 0

@@ -58,12 +58,17 @@ func create_all_abilities():
 	var expensive_castling_description = "Select a king and a rook that are either on the same row or column and castle. If they are next to each other they switch places."
 	create_settings_ability(expensive_castling_icon_path, expensive_castling_cooldown, expensive_castling_cost, "Expensive Castling", expensive_castling_description)
 	
-	var edible_wall_icon_path = "res://abilities_assets/Spawn Edible Wall.png"
-	var edible_wall_cooldown = "0"
-	var edible_wall_cost = "3"
-	var edible_wall_description = "Create a wall piece. It has to be captured if you want to go through it"
-	create_settings_ability(edible_wall_icon_path, edible_wall_cooldown, edible_wall_cost, "Spawn Edible Wall", edible_wall_description)
+	var spawn_edible_wall_icon_path = "res://abilities_assets/Spawn Edible Wall.png"
+	var spawn_edible_wall_cooldown = "0"
+	var spawn_edible_wall_cost = "3"
+	var spawn_edible_wall_description = "Spawn a wall piece. It has to be captured if you want to go through it."
+	create_settings_ability(spawn_edible_wall_icon_path, spawn_edible_wall_cooldown, spawn_edible_wall_cost, "Spawn Edible Wall", spawn_edible_wall_description)
 	
+	var spawn_trap_icon_path = "res://abilities_assets/Spawn Trap.png"
+	var spawn_trap_cooldown = "0"
+	var spawn_trap_cost = "5"
+	var spawn_trap_description = "Spawn a trap. The next piece that lands on it is destroyed."
+	create_settings_ability(spawn_trap_icon_path, spawn_trap_cooldown, spawn_trap_cost, "Spawn Trap", spawn_trap_description)
 	
 	
 
