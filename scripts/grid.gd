@@ -39,6 +39,7 @@ var chess_gem_path = preload("res://chess_gem.tscn")
 var gem_created_this_turn : bool
 var white_gems : int
 var black_gems : int
+var gem_value = 3
 
 # check if king is deleated to switch to game over screen
 var king_deleated = false
@@ -256,7 +257,7 @@ func move_piece(column0, row0, column1, row1):
 			# add gems to player's gem amount if a gem was captured
 			if deleated_type == "gem":
 				board[column1][row1].queue_free()
-				collect_gem(3)
+				collect_gem(gem_value)
 				
 		#create tween for better looking movement
 		var tween = create_tween()

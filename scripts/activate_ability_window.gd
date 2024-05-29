@@ -17,6 +17,10 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
+	if affected_pieces.size() != 0 && affected_pieces[0].get_activate_turn() == 0:
+		ability_is_activating[0] = true
+		self.set_visible(true)
+	
 	if queue.activation_tracker == tracker && queue.activation_finished[0]:
 		queue.activation_finished[0] = false
 		queue.activation_started[0] = false
@@ -53,9 +57,9 @@ func update_queue():
 		piece.update_counter()
 	if affected_pieces.size() == 0:
 		self.queue_free()
-	elif affected_pieces[0].get_activate_turn() == 0:
-		ability_is_activating[0] = true
-		self.set_visible(true)
+#	elif affected_pieces[0].get_activate_turn() == 0:
+#		ability_is_activating[0] = true
+#		self.set_visible(true)
 	
 
 func erase_piece(piece):
