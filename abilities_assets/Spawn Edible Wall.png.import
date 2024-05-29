@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://e36rsjrjutec"
-path="res://.godot/imported/Early_Retirement_Qween_Black.png-2d80c2b2b958186edfa4af5b0d3fc8f8.ctex"
+uid="uid://fvnwbmpqg7k7"
+path="res://.godot/imported/Spawn Edible Wall.png-2b622f746ef8ebd711c39fc60eb1564d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://abilities_assets/Early_Retirement_Assets/Early_Retirement_Qween_Black.png"
-dest_files=["res://.godot/imported/Early_Retirement_Qween_Black.png-2d80c2b2b958186edfa4af5b0d3fc8f8.ctex"]
+source_file="res://abilities_assets/Spawn Edible Wall.png"
+dest_files=["res://.godot/imported/Spawn Edible Wall.png-2b622f746ef8ebd711c39fc60eb1564d.ctex"]
 
 [params]
 

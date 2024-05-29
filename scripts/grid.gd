@@ -35,7 +35,7 @@ var turn_player: Node2D
 @export var p: PackedScene
 
 # gem path and var to keep track if gem was created this turn
-var chess_gem_path = preload("res://chess_gem.tscn")
+var gem_path = preload("res://gem.tscn")
 var gem_created_this_turn : bool
 var white_gems : int
 var black_gems : int
@@ -255,9 +255,8 @@ func move_piece(column0, row0, column1, row1):
 					king_deleated_isWhite = deleated_isWhite
 			
 			# add gems to player's gem amount if a gem was captured
-			if deleated_type == "gem":
-				board[column1][row1].queue_free()
-				collect_gem(gem_value)
+			elif !deleated_piece.is_chess_piece:
+				interact_with_item(column1, row1)
 				
 		#create tween for better looking movement
 		var tween = create_tween()
@@ -428,7 +427,7 @@ func add_gems():
 
 # create the gem object that add_gems() will add
 func create_gem(x, y):
-	var gem = chess_gem_path.instantiate()
+	var gem = gem_path.instantiate()
 	add_child(gem)
 	gem.position = grid_to_pixel(x, y)
 	board[x][y] = gem
@@ -457,3 +456,10 @@ func collect_gem_at_end_of_turn(gems):
 	$white_gems.text = "Gems: " + str(white_gems)
 	black_gems += gems
 	$black_gems.text = "Gems: " + str(black_gems)
+
+func interact_with_item(x, y):
+	if board[x][y].piece_type == "gem":
+		board[x][y].queue_free()
+		collect_gem(gem_value)
+	elif board[x][y].piece_type == "wall":
+		board[x][y].queue_free()

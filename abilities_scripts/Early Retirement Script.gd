@@ -69,6 +69,7 @@ func activate(the_arr):
 		sprite.name = "Early_Retirement_Crown"
 		sprite.texture = ResourceLoader.load(get_correct_texture(arr[1]))
 		arr[1].get_node("Sprite2D").add_child(sprite)
+		arr[1].get_node("Sprite2D").move_child(sprite, 0)
 		arr[0].piece_type = ""
 		arr[1].piece_type = "king"
 	end_of_activation()

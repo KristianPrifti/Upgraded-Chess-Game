@@ -10,7 +10,6 @@ extends Node2D
 @export var ability_in_progress: bool
 # keeps track of what turn ability should be activated and what the ability is
 @export var activate_turn: int
-#@export var ability_path: String
 
 
 #array that holds counters images
@@ -41,7 +40,8 @@ func is_in_grid(position: Vector2):
 	
 # check if the square is null or a gem
 func possible_square(x, y, board):
-	if board[x][y] == null || board[x][y].piece_type == "gem":
+	#if board[x][y] == null || board[x][y].piece_type == "gem":
+	if board[x][y] == null || !board[x][y].is_chess_piece:
 		return true
 
 # functions to update counters
@@ -65,15 +65,6 @@ func erase_counter():
 
 func get_activate_turn():
 	return activate_turn
-
-#func get_ability_path():
-#	return ability_path
-#
-#func set_ability(cooldown, ability_path):
-#	ability_in_progress = true
-#	activate_turn = cooldown
-#	self.ability_path = ability_path
-	
 
 func set_ability(cooldown):
 	ability_in_progress = true

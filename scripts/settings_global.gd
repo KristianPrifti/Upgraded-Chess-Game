@@ -58,6 +58,13 @@ func create_all_abilities():
 	var expensive_castling_description = "Select a king and a rook that are either on the same row or column and castle. If they are next to each other they switch places."
 	create_settings_ability(expensive_castling_icon_path, expensive_castling_cooldown, expensive_castling_cost, "Expensive Castling", expensive_castling_description)
 	
+	var edible_wall_icon_path = "res://abilities_assets/Spawn Edible Wall.png"
+	var edible_wall_cooldown = "0"
+	var edible_wall_cost = "3"
+	var edible_wall_description = "Create a wall piece. It has to be captured if you want to go through it"
+	create_settings_ability(edible_wall_icon_path, edible_wall_cooldown, edible_wall_cost, "Spawn Edible Wall", edible_wall_description)
+	
+	
 	
 
 
