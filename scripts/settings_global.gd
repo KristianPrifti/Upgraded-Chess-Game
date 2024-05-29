@@ -70,7 +70,11 @@ func create_all_abilities():
 	var spawn_trap_description = "Spawn a trap. The next piece that lands on it is destroyed."
 	create_settings_ability(spawn_trap_icon_path, spawn_trap_cooldown, spawn_trap_cost, "Spawn Trap", spawn_trap_description)
 	
-	
+	var disrespect_icon_path = "res://abilities_assets/Disrespect.png"
+	var disrespect_cooldown = "0"
+	var disrespect_cost = "10"
+	var disrespect_description = "Buy and find out."
+	create_settings_ability(disrespect_icon_path, disrespect_cooldown, disrespect_cost, "Disrespect", disrespect_description)
 
 
 # this function makes all other buttons disabled if the "all abilities" button is on
