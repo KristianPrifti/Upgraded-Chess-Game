@@ -65,11 +65,7 @@ func activate(the_arr):
 			return
 		
 		remove_current_crown_if_it_exists(arr[0])
-		var sprite = Sprite2D.new()
-		sprite.name = "Early_Retirement_Crown"
-		sprite.texture = ResourceLoader.load(get_correct_texture(arr[1]))
-		arr[1].get_node("Sprite2D").add_child(sprite)
-		arr[1].get_node("Sprite2D").move_child(sprite, 0)
+		add_crown(arr[1])
 		arr[0].piece_type = ""
 		arr[1].piece_type = "king"
 	end_of_activation()
@@ -80,7 +76,14 @@ func remove_current_crown_if_it_exists(p):
 		if i.name == "Early_Retirement_Crown":
 			i.queue_free()
 
-func get_correct_texture(p) -> String:
+static func add_crown(p):
+	var sprite = Sprite2D.new()
+	sprite.name = "Early_Retirement_Crown"
+	sprite.texture = ResourceLoader.load(get_correct_texture(p))
+	p.get_node("Sprite2D").add_child(sprite)
+	p.get_node("Sprite2D").move_child(sprite, 0)
+
+static func get_correct_texture(p) -> String:
 	if p.isWhite:
 		if p.piece_type == "qween":
 			return "res://abilities_assets/Early_Retirement_Assets/Early_Retirement_Qween_White.png"

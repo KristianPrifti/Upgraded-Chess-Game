@@ -112,6 +112,10 @@ func complete_promotion(piece):
 	if board[promote_pawn_location.x][promote_pawn_location.y].ability_in_progress:
 		erase_piece(board[promote_pawn_location.x][promote_pawn_location.y])
 	pawns_to_promote.remove_at(0)
+	# if pawn was a king beacause of Early_Retirement ability
+	if board[promote_pawn_location.x][promote_pawn_location.y].get_node("Sprite2D").get_children()[0].name == "Early_Retirement_Crown":
+		load("res://abilities_scripts/Early Retirement Script.gd").add_crown(piece)
+		piece.piece_type = "king"
 	board[promote_pawn_location.x][promote_pawn_location.y].queue_free()
 	add_to_board(piece)
 	promote_window.set_visible(false)
@@ -268,7 +272,9 @@ func move_piece(column0, row0, column1, row1):
 		collect_gem_at_end_of_turn(1)
 		
 		# if the piece being moved is a pawn check if it needs to be promoted
-		if board[column1][row1].piece_type == "pawn":
+		#if board[column1][row1].piece_type == "pawn":
+		if board[column1][row1].get_node("Sprite2D").texture == ResourceLoader.load("res://assets/White_Pawn.png") || \
+		board[column1][row1].get_node("Sprite2D").texture == ResourceLoader.load("res://assets/Black_Pawn.png"):
 			start_promotion_if_necessary(column1, row1)
 		
 		if code == 1:
