@@ -70,6 +70,12 @@ func create_all_abilities():
 	var spawn_trap_description = "Spawn a trap. The next piece that lands on it is destroyed."
 	create_settings_ability(spawn_trap_icon_path, spawn_trap_cooldown, spawn_trap_cost, "Spawn Trap", spawn_trap_description)
 	
+	var destructive_hammer_icon_path = "res://abilities_assets/Destructive Hammer.png"
+	var destructive_hammer_cooldown = "0"
+	var destructive_hammer_cost = "7"
+	var destructive_hammer_description = "Destroy an item on the board (gem, wall, trap)."
+	create_settings_ability(destructive_hammer_icon_path, destructive_hammer_cooldown, destructive_hammer_cost, "Destructive Hammer", destructive_hammer_description)
+	
 	var disrespect_icon_path = "res://abilities_assets/Disrespect.png"
 	var disrespect_cooldown = "0"
 	var disrespect_cost = "10"
